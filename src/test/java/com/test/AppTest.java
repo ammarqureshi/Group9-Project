@@ -16,5 +16,10 @@ public class AppTest {
 	public void testMult(){
 		assertEquals(12,App.Mul(3,4));
 	}
+	
+	@Test
+	public void testMultFail(){
+		assertEquals(12,App.Mul(4,4));
+	}
 
 }
