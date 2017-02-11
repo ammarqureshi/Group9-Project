@@ -16,7 +16,7 @@ public class HungarianHappiness {
 		
 		for (int i=0; i<groups.length; i++) {
 			Scanner groupScanner = new Scanner(groups[i]);
-			groupScanner.nextInt();	//relies on fact that groups are listed sequentially
+			groupScanner.nextInt();	//used as the first int is the group number and not needed here
 			int givenProject = resultsScanner.nextInt();
 			int projectPreference = 0;
 			boolean notPreferenceProject = false;	//if project a group receives is not in their preferences
