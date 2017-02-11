@@ -1,18 +1,22 @@
 import java.util.Scanner;
 public class HungarianHappiness {
 
-	//calculates a 'happiness' score for the project allocations out of 100
-	public static double happinessScore(String [] groups, String results, int numOfProjects) {
-		int numOfGroups = groups.length;		
-		int totalScore = numOfGroups * numOfProjects;
-		double currentScore = 0;
-		int topScore = totalScore/numOfGroups;	//the score given when a group gets first preference
-		int scoreDecrease = topScore/numOfProjects; //how much the score given decreases for a lower preference
+	/**
+	 * Returns an array containing 3 percentages, the first percentage is the percentage of groups
+	 * getting a project in their first 4 preferences (happy), the second is percentage of groups
+	 * getting a project >4 <8 preferences(middling), the third is the percentage of groups 
+	 * getting a project >8 preferences (unhappy)
+	 */
+	public static double[] happinessScore(String [] groups, String results) {
+		int numOfGroups = groups.length;
+		double numOfHappy = 0;		//these are the number of groups that fall within our 3 percentiles
+		double numOfMiddling = 0;
+		double numOfUnhappy = 0;
 		Scanner resultsScanner = new Scanner(results);
 		
 		for (int i=0; i<groups.length; i++) {
 			Scanner groupScanner = new Scanner(groups[i]);
-			groupScanner.nextInt();
+			groupScanner.nextInt();	//relies on fact that groups are listed sequentially
 			int givenProject = resultsScanner.nextInt();
 			int projectPreference = 0;
 			boolean notPreferenceProject = false;	//if project a group receives is not in their preferences
@@ -29,13 +33,23 @@ public class HungarianHappiness {
 					notPreferenceProject = true;
 				}
 			}
-			int score = topScore -(scoreDecrease * (projectPreference-1));
-			currentScore += score;
+			if (notPreferenceProject == true || projectPreference > 8) {
+				numOfUnhappy++;
+			}
+			else if (projectPreference > 4) {
+				numOfMiddling++;
+			}
+			else {
+				numOfHappy++;
+			}
 		}
 		
 		resultsScanner.close();
-		currentScore = (int)((currentScore/totalScore) * 100);	//works out the score as a score out of 100
-		return currentScore;
+		numOfHappy = (numOfHappy/numOfGroups)*100;
+		numOfMiddling = (numOfMiddling/numOfGroups)*100;
+		numOfUnhappy = (numOfUnhappy/numOfGroups)*100;
+		double[] finalScore = new double[]{numOfHappy, numOfMiddling, numOfUnhappy};
+		return finalScore;
 	}
 
 }
