@@ -1,0 +1,314 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+ 
+public class Hungarian
+{
+    private final int[][] costMatrix;
+    private final int        groups, projects, dim; //rows = groups , projects = cols
+    int[] labelByGroup;
+	private final int[]   labelByProject;  //labelByWorker= labelByGroup  , labelByJob = labelByProject
+    private final int[]      minSlackGroupByProject;
+    private final int[]   minSlackValueByProject;
+    private final int[]      matchProjectByGroup, matchGroupByProject;
+    private final int[]      parentGroupByCommittedProject;
+    private final boolean[]  committedGroups;
+ 
+    public Hungarian(int[][] cos)
+    {
+        this.dim = Math.max(cos.length, cos[0].length);
+        this.groups = cos.length;
+        this.projects = cos[0].length;
+        this.costMatrix = new int[this.dim][this.dim];
+        for (int w = 0; w < this.dim; w++)
+        {
+            if (w < cos.length)
+            {
+                if (cos[w].length != this.projects)
+                {
+                    throw new IllegalArgumentException("Irregular cost matrix");
+                }
+                this.costMatrix[w] = Arrays.copyOf(cos[w], this.dim);
+            }
+            else
+            {
+                this.costMatrix[w] = new int[this.dim];
+            }
+        }
+        labelByGroup = new int[this.dim];
+        labelByProject = new int[this.dim];
+        minSlackGroupByProject = new int[this.dim];
+        minSlackValueByProject = new int[this.dim];
+        committedGroups = new boolean[this.dim];
+        parentGroupByCommittedProject = new int[this.dim];
+        matchProjectByGroup = new int[this.dim];
+        Arrays.fill(matchProjectByGroup, -1);
+        matchGroupByProject = new int[this.dim];
+        Arrays.fill(matchGroupByProject, -1);
+    }
+ 
+    protected void computeInitialFeasibleSolution()
+    {
+        for (int j = 0; j < dim; j++)
+        {
+            labelByProject[j] = (int) Double.POSITIVE_INFINITY;
+        }
+        for (int w = 0; w < dim; w++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                if (costMatrix[w][j] < labelByProject[j])
+                {
+                    labelByProject[j] = costMatrix[w][j];
+                }
+            }
+        }
+    }
+ 
+    public int[] execute()
+    {
+        /*
+         * Heuristics to improve performance: Reduce rows and columns by their
+         * smallest element, compute an initial non-zero dual feasible solution
+         * and
+         * create a greedy matching from workers to jobs of the cost matrix.
+         */
+        reduce();
+        computeInitialFeasibleSolution();
+        greedyMatch();
+        int w = fetchUnmatchedWorker();
+        while (w < dim)
+        {
+            initializePhase(w);
+            executePhase();
+            w = fetchUnmatchedWorker();
+        }
+        int[] result = Arrays.copyOf(matchProjectByGroup, groups);
+        for (w = 0; w < result.length; w++)
+        {
+            if (result[w] >= projects)
+            {
+                result[w] = -1;
+            }
+        }
+        return result;
+    }
+ 
+    protected void executePhase()
+    {
+        while (true)
+        {
+            int minSlackGroup = -1, minSlackJob = -1;
+            double minSlackValue = Double.POSITIVE_INFINITY;
+            for (int j = 0; j < dim; j++)
+            {
+                if (parentGroupByCommittedProject[j] == -1)
+                {
+                    if (minSlackValueByProject[j] < minSlackValue)
+                    {
+                        minSlackValue = minSlackValueByProject[j];
+                        minSlackGroup = minSlackGroupByProject[j];
+                        minSlackJob = j;
+                    }
+                }
+            }
+            if (minSlackValue > 0)
+            {
+                updateLabeling(minSlackValue);
+            }
+            parentGroupByCommittedProject[minSlackJob] = minSlackGroup;
+            if (matchGroupByProject[minSlackJob] == -1)
+            {
+                /*
+                 * An augmenting path has been found.
+                 */
+                int committedJob = minSlackJob;
+                int parentWorker = parentGroupByCommittedProject[committedJob];
+                while (true)
+                {
+                    int temp = matchProjectByGroup[parentWorker];
+                    match(parentWorker, committedJob);
+                    committedJob = temp;
+                    if (committedJob == -1)
+                    {
+                        break;
+                    }
+                    parentWorker = parentGroupByCommittedProject[committedJob];
+                }
+                return;
+            }
+            else
+            {
+                /*
+                 * Update slack values since we increased the size of the
+                 * committed
+                 * workers set.
+                 */
+                int worker = matchGroupByProject[minSlackJob];
+                committedGroups[worker] = true;
+                for (int j = 0; j < dim; j++)
+                {
+                    if (parentGroupByCommittedProject[j] == -1)
+                    {
+                        int slack = costMatrix[worker][j]
+                                - labelByGroup[worker] - labelByProject[j];
+                        if (minSlackValueByProject[j] > slack)
+                        {
+                            minSlackValueByProject[j] = slack;
+                            minSlackGroupByProject[j] = worker;
+                        }
+                    }
+                }
+            }
+        }
+    }
+ 
+    protected int fetchUnmatchedWorker()
+    {
+        int w;
+        for (w = 0; w < dim; w++)
+        {
+            if (matchProjectByGroup[w] == -1)
+            {
+                break;
+            }
+        }
+        return w;
+    }
+ 
+    protected void greedyMatch()
+    {
+        for (int w = 0; w < dim; w++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                if (matchProjectByGroup[w] == -1
+                        && matchGroupByProject[j] == -1
+                        && costMatrix[w][j] - labelByGroup[w] - labelByProject[j] == 0)
+                {
+                    match(w, j);
+                }
+            }
+        }
+    }
+ 
+    protected void initializePhase(int w)
+    {
+        Arrays.fill(committedGroups, false);
+        Arrays.fill(parentGroupByCommittedProject, -1);
+        committedGroups[w] = true;
+        for (int j = 0; j < dim; j++)
+        {
+            minSlackValueByProject[j] = costMatrix[w][j] - labelByGroup[w]
+                    - labelByProject[j];
+            minSlackGroupByProject[j] = w;
+        }
+    }
+ 
+    
+
+	protected void match(int w, int j)
+    {
+        matchProjectByGroup[w] = j;
+        matchGroupByProject[j] = w;
+    }
+ 
+    protected void reduce()
+    {
+        for (int w = 0; w < dim; w++)
+        {
+            double min = Double.POSITIVE_INFINITY;
+            for (int j = 0; j < dim; j++)
+            {
+                if (costMatrix[w][j] < min)
+                {
+                    min = costMatrix[w][j];
+                }
+            }
+            for (int j = 0; j < dim; j++)
+            {
+                costMatrix[w][j] -= min;
+            }
+        }
+        double[] min = new double[dim];
+        for (int j = 0; j < dim; j++)
+        {
+            min[j] = Double.POSITIVE_INFINITY;
+        }
+        for (int w = 0; w < dim; w++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                if (costMatrix[w][j] < min[j])
+                {
+                    min[j] = costMatrix[w][j];
+                }
+            }
+        }
+        for (int w = 0; w < dim; w++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                costMatrix[w][j] -= min[j];
+            }
+        }
+    }
+ 
+    protected void updateLabeling(double slack)
+    {
+        for (int w = 0; w < dim; w++)
+        {
+            if (committedGroups[w])
+            {
+                labelByGroup[w] += slack;
+            }
+        }
+        for (int j = 0; j < dim; j++)
+        {
+            if (parentGroupByCommittedProject[j] != -1)
+            {
+                labelByProject[j] -= slack;
+            }
+            else
+            {
+                minSlackValueByProject[j] -= slack;
+            }
+        }
+    }
+
+   
+    public static void main(String[] args) throws Exception
+    {
+    	
+    	Scanner sc= new Scanner(System.in);
+    	InputHandel inputH = new InputHandel();
+       int[][] cos =null;
+    		   cos = inputH.main(args);
+       
+        	
+		        
+		       
+		        Hungarian hbm = new Hungarian(cos);
+		        int[] result = hbm.execute();
+		        System.out.println("\nBipartite Matching: " + Arrays.toString(result));
+		        
+		        int r = inputH.rows;
+		        for(int i=0;i<r; i++)
+		        {
+		        	int j =result[i];
+		        	System.out.println("group "+(i+1)+" : Project "+(j+1));
+		        	
+		        }
+	        }
+	        
+       
+    
+
+       
+    }
+

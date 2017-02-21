@@ -16,5 +16,7 @@ public class AppTest {
 	public void testMult(){
 		assertEquals(12,App.Mul(3,4));
 	}
+	
+	
 
 }
