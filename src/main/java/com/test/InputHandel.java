@@ -1,50 +1,40 @@
 package com.test;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import javax.swing.*;
 import java.util.*;
 import java.util.List;
-import java.awt.*;
+
 public class InputHandel
 {
-	public static int rows, cols;
-    public static int[][] cells;
+	public int rows, cols;
+    public int[][] cells;
     
-	public static int[][] main(String[] args) throws Exception {
+	public int[][] parseInput(String input) {
 		String numbs="";
 		 int[][] intArray;
-		 int[][] finalArray = null;
-	    // Read the entire file in
-	    List<String> myFileLines = Files.readAllLines(Paths.get("D:/Workplace/test.txt"));
+		 
+	    List<String> myFileLines = new LinkedList<>();
+	    Scanner lineScanner = new Scanner(input);
+	    while(lineScanner.hasNextLine()) {
+	    	myFileLines.add(lineScanner.nextLine());
+	    	//System.out.println(lineScanner.nextLine());
+	    }
+	    
 
 	    // Remove any blank lines
 	    for (int i = myFileLines.size() - 1; i >= 0; i--) 
 	    {
 	        if (myFileLines.get(i).isEmpty()) 
 	        {
-	        	
 	            myFileLines.remove(i);
 	        }
 	    }
 
-	    //Uses first value to get the number of rows 
-	    for (int i =0; i < 1; i++) 
-	    {
-	    	numbs = myFileLines.get(i);
-	    	cols = (Integer.parseInt(numbs));
-	    	
-	    	
-	    }
-	    
-	  
-	    
-	  
+    	numbs = myFileLines.get(0).replaceAll("\\s+",""); //removes whitespace
+    	
+    	cols = (Integer.parseInt(numbs));
+    	
 	    // 2d array with the amount of lines that were read from the file
-	     intArray = new int[myFileLines.size()][];
-	    int tempCols=0;
+	    intArray = new int[myFileLines.size()][];
 	    
 	    // Iterate through each row to determine the number of columns
 	    for (int i = 0; i < myFileLines.size(); i++)
@@ -99,18 +89,18 @@ public class InputHandel
 	    * Printing begins now
 	    */
 	    
+	    /*
 	    System.out.println(rows+" groups");
 	    System.out.println(cols+" projects");
-	    
+	    */
 	    int r =rows;
 	    intArray= fillInArray(intArray,r);
 	    intArray= removeCol(intArray,z);
-	    System.out.println(" ");
-	    print(intArray);
+	    //print(intArray);
 		return intArray;
-	    
-	   
+		
 	}
+	
 	
 	//removes the first row containing the total group number
 	
@@ -201,6 +191,7 @@ public class InputHandel
 		return finalA;
 		
 	}
+	
 	public static void print(int[][] array)
 	{
 		for (int[] row : array) 

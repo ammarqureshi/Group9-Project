@@ -283,34 +283,52 @@ public class Hungarian
         }
     }
 
+    
+    public static String getAssignments(String preferences, String groupDescriptions) {
+    	InputHandel inputH = new InputHandel();
+    	
+        int[][] cos = inputH.parseInput(preferences);
+		Hungarian hbm = new Hungarian(cos);
+		int[] result = hbm.execute();
+		String resultString = "";
+		        
+	 	int r = inputH.rows;
+        for(int i=0;i<r; i++)
+        {
+        	int j =result[i];
+        	//group number followed by project number
+        	resultString += (i+1) + " " + (j+1) + "\n";
+        	
+        }
+        return resultString;
+    }
+    
+    public static String getStringFromFile(String filename) {
+    	String text = "";
+		try {
+			Scanner scanner = new Scanner( new File(filename) );
+	    	text = scanner.useDelimiter("\\A").next();
+	    	scanner.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("File " + filename + " not found!");
+			e.printStackTrace();
+		}
+    	return text;
+    }
    
+    public static String assignFromFileInput(String preferencesPath, String groupsPath) {
+    	String preferences = getStringFromFile(preferencesPath);
+    	//null for now because we haven't got group descriptions sorted!
+    	//String groupDescriptions = getStringFromFile(groupsPath);
+    	return getAssignments(preferences, null);
+    }
+    
     public static void main(String[] args) throws Exception
     {
-    	
-    	Scanner sc= new Scanner(System.in);
-    	InputHandel inputH = new InputHandel();
-       int[][] cos =null;
-    		   cos = inputH.main(args);
+    	//run with command line args with first and second file
+    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
+    	System.out.println(result);
+	 }
        
-        	
-		        
-		       
-		        Hungarian hbm = new Hungarian(cos);
-		        int[] result = hbm.execute();
-		        System.out.println("\nBipartite Matching: " + Arrays.toString(result));
-		        
-		        int r = inputH.rows;
-		        for(int i=0;i<r; i++)
-		        {
-		        	int j =result[i];
-		        	System.out.println("group "+(i+1)+" : Project "+(j+1));
-		        	
-		        }
-	        }
-	        
-       
-    
-
-       
-    }
+}
 
