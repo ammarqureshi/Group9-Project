@@ -22,7 +22,4 @@ notifications:
     
     
     
- cache:
-  directories:
-  - .autoconf
-  - $HOME/.m2
+cache: bundler
