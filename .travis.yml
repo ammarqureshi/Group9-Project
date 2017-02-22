@@ -19,3 +19,10 @@ notifications:
     - crawford@tcd.ie
     on_success: always
     on_failure: always 
+    
+    
+    
+ cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
