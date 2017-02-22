@@ -15,6 +15,17 @@ public class SimpleHungarianTest {
 		String expected = "1 1\n";
 		assertEquals(expected, result);
 	}
+	
+
+	//Group names should be arbitrary
+	@Test
+	public void namingTest() {
+		String oneGroupPreference = "1 \n" +
+								  	"100 1\n";
+		String result = Hungarian.getAssignments(oneGroupPreference, null);
+		String expected = "100 1\n";
+		assertEquals(expected, result);
+	}
 
 	@Test
 	public void oneGroupNoPreference() {
@@ -46,6 +57,20 @@ public class SimpleHungarianTest {
 		String expected = "1 1\n" +
 						  "2 2\n" +
 						  "3 3\n";
+		assertEquals(expected, result);
+	}
+
+	//Another check for group names being arbitrary
+	@Test
+	public void threeGroupsFirstChoicesNamingCheck() {
+		String twoGroupPreferences = "3 \n" +
+								     "X 1 2\n" +
+								     "Y 2 1\n" +
+								     "Z 3\n";
+		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String expected = "X 1\n" +
+						  "Y 2\n" +
+						  "Z 3\n";
 		assertEquals(expected, result);
 	}
 
