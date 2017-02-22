@@ -13,7 +13,7 @@ public class InputHandel
 		String numbs="";
 		 int[][] intArray;
 		 
-	    List<String> myFileLines = new LinkedList<>();
+	    List<String> myFileLines = new LinkedList<String>();
 	    Scanner lineScanner = new Scanner(input);
 	    while(lineScanner.hasNextLine()) {
 	    	myFileLines.add(lineScanner.nextLine());

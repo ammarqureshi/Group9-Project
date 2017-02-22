@@ -307,7 +307,7 @@ public class Hungarian
     }
     
     private static HashMap<Integer, String> groupRowsToNamesMap(String preferences) {
-		HashMap<Integer, String> groupNamesToMatrixRow = new HashMap<>();
+		HashMap<Integer, String> groupNamesToMatrixRow = new HashMap<Integer, String>();
 	    Scanner lineScanner = new Scanner(preferences);
 	    lineScanner.nextLine(); //skip first line
 	    int i = 0;

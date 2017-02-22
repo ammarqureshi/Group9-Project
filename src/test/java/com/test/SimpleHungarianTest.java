@@ -60,14 +60,27 @@ public class SimpleHungarianTest {
 		assertEquals(expected, result);
 	}
 
+	@Test
+	public void threeGroupsFirstChoicesExtraPreferences() {
+		String twoGroupPreferences = "3 \n" +
+								     "1 1 2 3 4 5\n" +
+								     "2 2 3 4 5 1\n" +
+								     "3 3 4 5 1 2\n";
+		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String expected = "1 1\n" +
+						  "2 2\n" +
+						  "3 3\n";
+		assertEquals(expected, result);
+	}
+
 	//Another check for group names being arbitrary
 	@Test
 	public void threeGroupsFirstChoicesNamingCheck() {
-		String twoGroupPreferences = "3 \n" +
-								     "X 1 2\n" +
-								     "Y 2 1\n" +
+		String threeGroupPreferences = "3 \n" +
+								     "X 1\n" +
+								     "Y 2\n" +
 								     "Z 3\n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = Hungarian.getAssignments(threeGroupPreferences, null);
 		String expected = "X 1\n" +
 						  "Y 2\n" +
 						  "Z 3\n";
