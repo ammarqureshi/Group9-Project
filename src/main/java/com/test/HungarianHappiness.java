@@ -3,9 +3,9 @@ public class HungarianHappiness {
 
 	/**
 	 * Returns an array containing 3 percentages, the first percentage is the percentage of groups
-	 * getting a project in their first 4 preferences (happy), the second is percentage of groups
-	 * getting a project >4 <8 preferences(middling), the third is the percentage of groups 
-	 * getting a project >8 preferences (unhappy)
+	 * getting a project in their first 3 preferences (happy), the second is percentage of groups
+	 * getting a project >3 <6 preferences(middling), the third is the percentage of groups 
+	 * getting a project >6 preferences (unhappy)
 	 */
 	public static double[] happinessScore(String [] groups, String results) {
 		int numOfGroups = groups.length;
@@ -16,7 +16,7 @@ public class HungarianHappiness {
 		
 		for (int i=0; i<groups.length; i++) {
 			Scanner groupScanner = new Scanner(groups[i]);
-			groupScanner.nextInt();	//used as the first int is the group number and not needed here
+			groupScanner.nextInt();	//relies on fact that groups are listed sequentially
 			int givenProject = resultsScanner.nextInt();
 			int projectPreference = 0;
 			boolean notPreferenceProject = false;	//if project a group receives is not in their preferences
@@ -33,10 +33,10 @@ public class HungarianHappiness {
 					notPreferenceProject = true;
 				}
 			}
-			if (notPreferenceProject == true || projectPreference > 8) {
+			if (notPreferenceProject == true || projectPreference > 6) {
 				numOfUnhappy++;
 			}
-			else if (projectPreference > 4) {
+			else if (projectPreference > 3) {
 				numOfMiddling++;
 			}
 			else {
