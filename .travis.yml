@@ -8,15 +8,8 @@ jdk: oraclejdk8
 
 script: mvn test
 
-
+      
 notifications:
-  email:
- 
-    
-    
-    
-    
-    notifications:
   email:
     recipients:
     - qureshm@tcd.ie
