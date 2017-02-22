@@ -11,8 +11,18 @@ script: mvn test
 
 notifications:
   email:
+ 
+    
+    
+    
+    
+    notifications:
+  email:
+    recipients:
     - qureshm@tcd.ie
     - erlist@tcd.ie
     - eozoani@tcd.ie
     - muganc@tcd.ie
     - crawford@tcd.ie
+    on_success: always
+    on_failure: always 
