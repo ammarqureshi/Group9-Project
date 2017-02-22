@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -290,18 +291,35 @@ public class Hungarian
         int[][] cos = inputH.parseInput(preferences);
 		Hungarian hbm = new Hungarian(cos);
 		int[] result = hbm.execute();
+		
+		HashMap<Integer, String> groupRowToName = groupRowsToNamesMap(preferences);
+		
 		String resultString = "";
-		        
 	 	int r = inputH.rows;
         for(int i=0;i<r; i++)
         {
         	int j =result[i];
-        	//group number followed by project number
-        	resultString += (i+1) + " " + (j+1) + "\n";
+        	//group name followed by project number
+        	resultString += groupRowToName.get(i) + " " + (j+1) + "\n";
         	
         }
         return resultString;
     }
+    
+    private static HashMap<Integer, String> groupRowsToNamesMap(String preferences) {
+		HashMap<Integer, String> groupNamesToMatrixRow = new HashMap<>();
+	    Scanner lineScanner = new Scanner(preferences);
+	    lineScanner.nextLine(); //skip first line
+	    int i = 0;
+	    while(lineScanner.hasNextLine()) {
+	    	// first token is groupname
+	    	String groupName = lineScanner.nextLine().split(" ")[0];
+	    	groupNamesToMatrixRow.put(i, groupName);
+	    	i++;
+	    }
+	    return groupNamesToMatrixRow;
+    }
+    
     
     public static String getStringFromFile(String filename) {
     	String text = "";

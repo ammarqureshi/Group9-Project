@@ -8,6 +8,7 @@ public class InputHandel
 	public int rows, cols;
     public int[][] cells;
     
+    
 	public int[][] parseInput(String input) {
 		String numbs="";
 		 int[][] intArray;
@@ -54,6 +55,9 @@ public class InputHandel
 	          {
 	        	  break;
 	        	  
+	          }
+	          else if(j == 0) {
+	        	  intArray[i][j] = i; //group number X at row X
 	          }
 	          else
 	          {
