@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Hungarian
 {
     private final int[][] costMatrix;
-    private final int        groups, projects, dim; //rows = groups , projects = cols
+    private final int groups, projects, dim; //rows = groups , projects = cols
     int[] labelByGroup;
 	private final int[]   labelByProject;  //labelByWorker= labelByGroup  , labelByJob = labelByProject
     private final int[]      minSlackGroupByProject;
@@ -283,34 +284,74 @@ public class Hungarian
         }
     }
 
+    
+    public static String getAssignments(String preferences, String groupDescriptions) {
+    	InputHandel inputH = new InputHandel();
+    	
+        int[][] cos = inputH.parseInput(preferences);
+		Hungarian hbm = new Hungarian(cos);
+		int[] result = hbm.execute();
+		
+		HashMap<Integer, String> groupRowToName = groupRowsToNamesMap(preferences);
+		
+		String resultString = "";
+	 	int r = inputH.matrixSize;
+        for(int i=0;i<r; i++)
+        {
+        	int j = result[i];
+        	//group name followed by project number
+        	if (groupRowToName.get(i) != null) {
+        		String groupRowName = groupRowToName.get(i);
+        		int projectNum = inputH.getColumnProjectNumber(j);
+            	resultString += groupRowName + " " + projectNum + "\n";
+        	}
+        	
+        }
+        return resultString;
+    }
+    
+    private static HashMap<Integer, String> groupRowsToNamesMap(String preferences) {
+		HashMap<Integer, String> groupNamesToMatrixRow = new HashMap<Integer, String>();
+	    Scanner lineScanner = new Scanner(preferences);
+	    lineScanner.nextLine(); //skip first line
+	    int i = 0;
+	    while(lineScanner.hasNextLine()) {
+	    	// first token is groupname
+	    	String groupName = lineScanner.nextLine().split(" ")[0];
+	    	groupNamesToMatrixRow.put(i, groupName);
+	    	i++;
+	    }
+	    lineScanner.close();
+	    return groupNamesToMatrixRow;
+    }
+    
+    
+    public static String getStringFromFile(String filename) {
+    	String text = "";
+		try {
+			Scanner scanner = new Scanner( new File(filename) );
+	    	text = scanner.useDelimiter("\\A").next();
+	    	scanner.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("File " + filename + " not found!");
+			e.printStackTrace();
+		}
+    	return text;
+    }
    
+    public static String assignFromFileInput(String preferencesPath, String groupsPath) {
+    	String preferences = getStringFromFile(preferencesPath);
+    	//null for now because we haven't got group descriptions sorted!
+    	//String groupDescriptions = getStringFromFile(groupsPath);
+    	return getAssignments(preferences, null);
+    }
+    
     public static void main(String[] args) throws Exception
     {
-    	
-    	Scanner sc= new Scanner(System.in);
-    	InputHandel inputH = new InputHandel();
-       int[][] cos =null;
-    		   cos = inputH.main(args);
+    	//run with command line args with first and second file
+    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
+    	System.out.println(result);
+	 }
        
-        	
-		        
-		       
-		        Hungarian hbm = new Hungarian(cos);
-		        int[] result = hbm.execute();
-		        System.out.println("\nBipartite Matching: " + Arrays.toString(result));
-		        
-		        int r = inputH.rows;
-		        for(int i=0;i<r; i++)
-		        {
-		        	int j =result[i];
-		        	System.out.println("group "+(i+1)+" : Project "+(j+1));
-		        	
-		        }
-	        }
-	        
-       
-    
-
-       
-    }
+}
 
