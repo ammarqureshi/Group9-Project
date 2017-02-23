@@ -8,8 +8,8 @@ public class InputHandel
     public int[] currentMaxForRow;
 	int[][] costMatrix;
 	
-    private HashMap<Integer, Integer> projectNumberToMatrixCol = new HashMap<>();
-    private HashMap<Integer, Integer> matrixColsToProjectNumbersMap = new HashMap<>();
+    private HashMap<Integer, Integer> projectNumberToMatrixCol = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> matrixColsToProjectNumbersMap = new HashMap<Integer, Integer>();
     private int nextUnusedCol = 0;
     
     
