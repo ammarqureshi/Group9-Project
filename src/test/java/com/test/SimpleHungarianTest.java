@@ -47,6 +47,34 @@ public class SimpleHungarianTest {
 		assertEquals(expected, result);
 	}
 
+
+	@Test
+	public void twoGroupsOneNoPreference() {
+		String twoGroupPreferences = "2 \n" +
+								     "1 1 2\n" +
+								     "2 \n";
+		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String expected = "1 1\n" +
+						  "2 2\n";
+		assertEquals(expected, result);
+	}
+
+
+	@Test
+	public void twoGroupsNoPreferences() {
+		String twoGroupPreferences = "2 \n" +
+								     "1 \n" +
+								     "2 \n";
+		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		//doesnt matter which as long as one of these two!
+		String expected1 = "1 1\n" +
+				           "2 2\n";
+		String expected2 = "1 2\n" +
+				   		   "2 1\n";
+		boolean success = result.equals(expected1) || result.equals(expected2);
+		assert(success);
+	}
+
 	@Test
 	public void threeGroupsFirstChoices() {
 		String twoGroupPreferences = "3 \n" +
@@ -62,7 +90,7 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void threeGroupsFirstChoicesExtraPreferences() {
-		String twoGroupPreferences = "3 \n" +
+		String twoGroupPreferences = "5 \n" +
 								     "1 1 2 3 4 5\n" +
 								     "2 2 3 4 5 1\n" +
 								     "3 3 4 5 1 2\n";
@@ -90,14 +118,14 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void threeGroupsContention() {
-		String twoGroupPreferences = "2 \n" +
-								     "1 1 3 2\n" +	// should get their 2nd (alternative is someone else gets 3rd)
+		String twoGroupPreferences = "3 \n" +
+								     "1 1 2 3\n" +	// should get their 1st
 								     "2 2 1 3\n" +  // should get their 1st
-								     "3 1 2 3\n";	// should get their 1st
+								     "3 1 3 2\n";	// should get their 2nd (alternative is someone else gets 3rd)
 		String result = Hungarian.getAssignments(twoGroupPreferences, null);
-		String expected = "1 3\n" +
+		String expected = "1 1\n" +
 						  "2 2\n" +
-						  "3 1\n";
+						  "3 3\n";
 		assertEquals(expected, result);
 	}
 

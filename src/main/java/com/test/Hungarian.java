@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class Hungarian
 {
     private final int[][] costMatrix;
-    private final int        groups, projects, dim; //rows = groups , projects = cols
+    private final int groups, projects, dim; //rows = groups , projects = cols
     int[] labelByGroup;
 	private final int[]   labelByProject;  //labelByWorker= labelByGroup  , labelByJob = labelByProject
     private final int[]      minSlackGroupByProject;
@@ -295,12 +295,16 @@ public class Hungarian
 		HashMap<Integer, String> groupRowToName = groupRowsToNamesMap(preferences);
 		
 		String resultString = "";
-	 	int r = inputH.rows;
+	 	int r = inputH.matrixSize;
         for(int i=0;i<r; i++)
         {
-        	int j =result[i];
+        	int j = result[i];
         	//group name followed by project number
-        	resultString += groupRowToName.get(i) + " " + (j+1) + "\n";
+        	if (groupRowToName.get(i) != null) {
+        		String groupRowName = groupRowToName.get(i);
+        		int projectNum = inputH.getColumnProjectNumber(j);
+            	resultString += groupRowName + " " + projectNum + "\n";
+        	}
         	
         }
         return resultString;
@@ -317,6 +321,7 @@ public class Hungarian
 	    	groupNamesToMatrixRow.put(i, groupName);
 	    	i++;
 	    }
+	    lineScanner.close();
 	    return groupNamesToMatrixRow;
     }
     

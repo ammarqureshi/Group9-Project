@@ -1,199 +1,83 @@
 package com.test;
 
 import java.util.*;
-import java.util.List;
 
 public class InputHandel
 {
-	public int rows, cols;
-    public int[][] cells;
+	public int matrixSize;
+    public int[] currentMaxForRow;
+	int[][] costMatrix;
+	
+    private HashMap<Integer, Integer> projectNumberToMatrixCol = new HashMap<>();
+    private HashMap<Integer, Integer> matrixColsToProjectNumbersMap = new HashMap<>();
+    private int nextUnusedCol = 0;
     
     
 	public int[][] parseInput(String input) {
-		String numbs="";
-		 int[][] intArray;
+		String matrixSizeArg="";
 		 
 	    List<String> myFileLines = new LinkedList<String>();
 	    Scanner lineScanner = new Scanner(input);
+	    
+	    //get first number as dimension
+    	matrixSizeArg = lineScanner.nextLine().replaceAll("\\s+",""); //removes whitespace
+    	matrixSize = Integer.parseInt(matrixSizeArg);
+    	currentMaxForRow = new int[matrixSize];
+    	Arrays.fill(currentMaxForRow, 1);	//lowest weight available for preference is 1
+    	costMatrix = new int[matrixSize][matrixSize];
+    	
 	    while(lineScanner.hasNextLine()) {
 	    	myFileLines.add(lineScanner.nextLine());
-	    	//System.out.println(lineScanner.nextLine());
 	    }
-	    
-
-	    // Remove any blank lines
-	    for (int i = myFileLines.size() - 1; i >= 0; i--) 
-	    {
-	        if (myFileLines.get(i).isEmpty()) 
-	        {
-	            myFileLines.remove(i);
-	        }
-	    }
-
-    	numbs = myFileLines.get(0).replaceAll("\\s+",""); //removes whitespace
     	
-    	cols = (Integer.parseInt(numbs));
-    	
-	    // 2d array with the amount of lines that were read from the file
-	    intArray = new int[myFileLines.size()][];
+    	for(int i = 0; i < myFileLines.size(); i++) {
+    		String thisLine = myFileLines.get(i);
+    		String[] tokens = thisLine.split("\\s+");
+    		for(int j = 1; j < tokens.length; j++) {
+    			int projectPreference = Integer.parseInt(tokens[j]);
+    			int correctCol;
+    			if(projectNumberToMatrixCol.containsKey(projectPreference)){
+    				correctCol = projectNumberToMatrixCol.get(projectPreference);
+    			}
+    			else{
+    				correctCol = nextUnusedCol++;
+    				projectNumberToMatrixCol.put(projectPreference, correctCol);
+    				matrixColsToProjectNumbersMap.put(correctCol, projectPreference);
+    			}
+				costMatrix[i][correctCol] = currentMaxForRow[i];
+				currentMaxForRow[i]++;
+    		}
+    	}
 	    
-	    // Iterate through each row to determine the number of columns
-	    for (int i = 0; i < myFileLines.size(); i++)
-	    {
-	    	
-	        // Split the line by spaces
-	        String[] splitLine = myFileLines.get(i).split("\\s");
-
-	        // Declare the number of columns in the row from the split
-	        intArray[i] = new int[splitLine.length]; 
-	       // cols=splitLine.length;
-	      
-	        
-	        for (int j = 0; j < splitLine.length; j++) 
-	        {
-	          if(i==0 && j==0)
-	          {
-	        	  break;
-	        	  
-	          }
-	          else if(j == 0) {
-	        	  intArray[i][j] = i; //group number X at row X
-	          }
-	          else
-	          {
-	           	// Convert each String element to an integer
-		            intArray[i][j] = Integer.parseInt(splitLine[j]);
-		            
-	          }
-	        }
-	    }
-	    
-	    
-	    int z = 0; // the element to remove
-	    
-	    
-	    intArray = removeRow(intArray,z); 
-	    
-	    //finds the amount of groups (rows) 
-	    int ro=0;
-	    for(int i=0;i<intArray.length;i++)
-		   {
-			   for(int j =0;j<intArray[i].length;j++)
-			   {
-				   
-			   }
-			   ro++;
-		   }
-	    rows=ro;
-	   
-	  
-	   
-	    
-	   /**
-	    * Printing begins now
-	    */
-	    
-	    /*
-	    System.out.println(rows+" groups");
-	    System.out.println(cols+" projects");
-	    */
-	    int r =rows;
-	    intArray= fillInArray(intArray,r);
-	    intArray= removeCol(intArray,z);
-	    //print(intArray);
-		return intArray;
+	    //print(costMatrix);
+	    weightUnfilledPreferences();
+	    //print(costMatrix);
+	    lineScanner.close();
+		return costMatrix;
 		
 	}
 	
 	
-	//removes the first row containing the total group number
-	
-	public static int[][] removeRow(int[][] array,int rowToRemove)
-
-	{
-		
-		int[][] tempA = new int[array.length - 1][];
-		 // copy everything from 0 to  rowToRemove
-		 System.arraycopy(array, 0, tempA, 0,  rowToRemove);
-		 // copy from  rowToRemove+1 to end
-		 System.arraycopy(array,  rowToRemove + 1, tempA,  rowToRemove, array.length -  rowToRemove - 1);
-		 // reassign
-	    return tempA;		
+	//TODO - properly map projects with no preferences at all!
+	public int getColumnProjectNumber(int col) {
+		Integer mappedProjectNum = matrixColsToProjectNumbersMap.get(col);
+		if(mappedProjectNum == null) {
+			nextUnusedCol++;
+			return nextUnusedCol;
+		}
+		else
+			return mappedProjectNum;
 	}
 	
-	//removes group numbers 
-	public static int[][] removeCol(int[][] array,int col)
-	{
-		int[][] temp=null;
-		if(array != null && array.length > 0 && array[0].length > col)
-	    {
-	        temp = new int[array.length][array[0].length-1];
-	        for(int i =0;i<array.length;i++)
-	        { 
-	            int newColIdx = 0;
-	            for(int j =0;j<array[i].length;j++)
-	            {
-	                if(j!=col)
-	                {
-	                    temp[i][newColIdx] = array[i][j];
-	                    newColIdx++;
-	                }               
-	            }
-	        }
-	    }
-		return temp;       
-	}
-	public static int[][] fillInArray(int[][] array,int col)
-	{
-		int largestRow=0;
-		int[][]finalA;
-		//int c=0;
-		
-		//array to find largest row size
-		for(int i=0;i<array.length;i++)
+	private void weightUnfilledPreferences() {
+		for(int i = 0; i < matrixSize; i++)
 		{
-			int c=0;
-			for(int j=0;j<array[i].length;j++)
-			{
-				c++;
-			}
-			if(c>largestRow)
-			{
-				largestRow=c;
+			for(int j = 0; j < matrixSize; j++){
+				if(costMatrix[i][j] == 0) {
+					costMatrix[i][j] = 2*currentMaxForRow[i];
+				}
 			}
 		}
-		int val=0;
-		finalA=new int[col][largestRow];
-		int intilizer = 20;
-		/**
-		 * ^ change this for weighted-ness
-		 */
-		for(int i=0; i<col;i++)
-		{
-			for(int j = 0; j<largestRow;j++)
-			{
-				finalA[i][j]=intilizer;
-			}
-		}
-		for(int i=0;i<array.length;i++)
-		{
-			int c=0;
-			for(int j=0;j<array[i].length;j++)
-			{
-				val=array[i][j];
-				c++;
-			}
-			c-=1;
-			
-			for(;c>=0;c--)
-			{
-				finalA[i][c]=array[i][c];
-			}
-		}
-		
-		
-		return finalA;
-		
 	}
 	
 	public static void print(int[][] array)
