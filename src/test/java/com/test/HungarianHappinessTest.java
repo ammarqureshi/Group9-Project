@@ -35,9 +35,9 @@ public class HungarianHappinessTest {
 				"2 2 1 3 4 5 6 7 8 9 10 11 12",
 				"3 3 2 1 4 5 6 7 8 9 10 11 12",
 				"4 4 2 3 1 5 6 7 8 9 10 11 12",
-				"5 5 2 3 4 1 6 7 8 9 10 11 12"
+				"5 5 2 3 4 10 6 7 8 9 1 11 12"
 		};
-		String results = "5 6 7 8 1";
+		String results = "5 6 4 1 10";
 		double[] exResults = new double[]{0, 100, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -138,4 +138,3 @@ public class HungarianHappinessTest {
 	}
 
 }
-
