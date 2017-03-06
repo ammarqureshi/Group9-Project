@@ -129,4 +129,45 @@ public class SimpleHungarianTest {
 		assertEquals(expected, result);
 	}
 
+	@Test
+	public void lastYearsPreferences() {
+		String lastYears = "16\n" +
+			"1 10 11 14\n" +
+			"2 2 14 15 9 7 5 11\n" +
+			"3 6 5 4 9 3\n" +
+			"4 9 15 5 1 8 4\n" +
+			"5 1 9 3 5 7\n" +
+			"6 14 1 3 5 9 7\n" +
+			"7 14 15 7 11 3 13 9\n" +
+			"8 3 9 5 1 2\n" +
+			"9 14 6 9 11 3\n" +
+			"10 9 4 1 2 7\n" +
+			"11 9 12 5 16 14 1\n" +
+			"12 14 1 2 8 13\n" +
+			"13 5 9 6 1 12 8 15 4\n" +
+			"14 9 7 6 8 14 15 5 4 16 1 2 3 11 13 10 12\n" +
+			"15 14 7 9 2\n";
+		String result = Hungarian.getAssignments(lastYears, null);
+		System.out.println(result);
+		String expected = 
+				"1 10\n" + 
+				"2 2\n" +
+				"3 6\n" +
+				"4 9\n" +
+				"5 1\n" +
+				"6 14\n" +
+				"7 15\n" +
+				"8 3\n" +
+				"9 11\n" +
+				"10 4\n" +
+				"11 12\n" +
+				"12 13\n" +
+				"13 5\n" +
+				"14 8\n" +
+				"15 7\n";
+		assertEquals(expected, result);
+	}
+	
+
+
 }
