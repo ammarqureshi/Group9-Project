@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Multigroup {
 	
-	private static int [] projects;
-	private static int [] groupPrefs;
+	private int [] projects;
+	private int [] groupPrefs;
 //	double [] highScores;
 	
 	/**
@@ -13,7 +13,7 @@ public class Multigroup {
 	 * 			   groups[][] = groups to be assigned to projects, and preferences
 	 * @return array of sorted groups with projects
 	 */
-	public static int [] multiSort(int [][] groups, int [] multiprojs)
+	public int [] multiSort(int [][] groups, int [] multiprojs)
 	{
 		projects = multiprojs;
 		groupPrefs = new int[groups.length];
@@ -64,28 +64,7 @@ public class Multigroup {
 			free = false;
 		}
 		
-//		for(i = 0; i < projects.length; i++)
-//		{
-//			System.out.println("Group " + projects[i] + " have been assigned multigroup project " + i);
-//		}
-//		
-//		int [] newGroups = new int[(groups.length - projects.length)];
-//		int newIndex = 0;
-//		boolean found = false;
-//		for(i = 0; i < newGroups.length; i++)
-//		{
-//			for(j = 0; j < projects.length; i++)
-//			{
-//				if(projects[j] == i + 1)
-//				{
-//					found = true;
-//				}
-//			}
-//			if(found != true)
-//			{
-//				newGroups[newIndex] = i;
-//			}
-//		}
+
 		return projects;
 	}
 	/**

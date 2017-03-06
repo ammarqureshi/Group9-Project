@@ -23,7 +23,41 @@ public class PrioritiseProjects {
 		}
 		return AllAllocated;
 	}
-	
+
+
+	public static String[] bump(String[] groupPrefs, int[] priorityProjects){
+
+		String[] updatedPrefs = new String[groupPrefs.length];
+
+		for(int i=0;i<groupPrefs.length;i++){
+			//parse the preferences of each group
+			String[] prefs = groupPrefs[i].split(" ");
+
+			//iterate through each groups preference
+			//start from index 2 since index 0:group number index 1:already highest priority(cant bump)
+			for(int j=2;j<prefs.length;j++){
+				String p = prefs[j];
+				//check if groups preference has the priority projects
+				for(int k=0;k<priorityProjects.length;k++){
+					if(prefs[j].equals(Integer.toString(priorityProjects[k]))){
+						//swap i and i-1
+						String temp = prefs[j-1];
+						prefs[j-1] = prefs[j];
+						prefs[j] = temp;
+					}
+
+				}
+			}
+			updatedPrefs[i] = Arrays.toString(prefs).replaceAll("\\[|\\]|,", "");
+
+		}
+
+		return updatedPrefs;
+	}
+
+
+
+
 	public static String[] bumpPriority (String[] preferences, int[]priorityProjects) {
 		for (int i = 0; i<preferences.length;i++) {
 			Scanner scanner = new Scanner(preferences[i]);
@@ -45,9 +79,8 @@ public class PrioritiseProjects {
 						a[preferencePos] = oldPref;
 						String newPrefs = Arrays.toString(a);
 						preferences[i] = newPrefs;
-						preferences[i] = preferences[i].replace("[", "")
-						.replace("]", "")
-						.replaceAll(",", "");
+						preferences[i] = preferences[i].replaceAll("\\[|\\]|,", "");
+
 					}
 				}
 			}
