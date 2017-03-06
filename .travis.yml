@@ -6,7 +6,7 @@ install: true
 
 jdk: 
       - oraclejdk8
-      - oraclejdk7
+   
 
 script: mvn test
 
@@ -29,7 +29,4 @@ cache: bundler
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   
-os:
-  - linux
-  - osx
 
