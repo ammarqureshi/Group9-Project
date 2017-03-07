@@ -7,7 +7,7 @@ public class HungarianHappinessTest {
 
 	@Test
 	public void Onegroup() {
-		String groups = new String("1 1 2 3 4 5 6 7 8 9 10 11 12");
+		String groups = new String("12\n1 1 2 3 4 5 6 7 8 9 10 11 12");
 		String results = "1 1";
 		double[] exResults = new double[]{100, 0, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
@@ -17,7 +17,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allHappy() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n" 
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -32,7 +32,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allMiddling() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n"
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -47,7 +47,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allUnhappy() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n"
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -62,7 +62,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void notPreferenceProject() {
 		String groups = new String(
-				"1 5 2 3 4 1\n"
+				"5\n1 5 2 3 4 1\n"
 				+ "2 5 1 3 4 2\n"
 				+ "3 5 2 1 4 3\n"
 				+ "4 5 2 3 1 4\n"
@@ -76,7 +76,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy50Middling50() {
 		String groups = new String(
-				"1 5 2 3 4 1\n"
+				"5\n1 5 2 3 4 1\n"
 				+ "2 2 1 3 4 5\n"
 				+ "3 5 2 1 4 3\n"
 				+ "4 5 2 3 1 4"
@@ -89,7 +89,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy50Middling25Unhappy25() {
 		String groups = new String(
-				"1 1 2 3 4 5\n"
+				"5\n1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -102,7 +102,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy75Middling25() {
 		String groups = new String(
-				"1 1 2 3 4 5\n"
+				"5\n1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -115,7 +115,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy75Middling0Unhappy25() {
 		String groups = new String(
-				"1 1 2 3 4 5\n"
+				"5\n1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -128,7 +128,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy25Middling50Unhappy25() {
 		String groups = new String(
-				"1 1 2 3 4 5\n"
+				"5\n1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
