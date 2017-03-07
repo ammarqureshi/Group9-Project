@@ -36,10 +36,10 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void OnePriorityProjectPriorityBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 6 7 8 9 11 10 12\n"
+				"12\n1 1 2 3 4 5 6 7 8 9 11 10 12\n"
 		);
 		int[] projects = {11};
 		Assert.assertEquals(newPrefs, PrioritiseProjects.bumpPriority(groups, projects));
@@ -48,10 +48,10 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void FivePriorityProjectPriorityBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 7 8 6 10 11 12 9\n"
+				"12\n1 1 2 3 4 5 7 8 6 10 11 12 9\n"
 		);
 		int[] projects = {10, 11, 12, 8, 7};
 		Assert.assertEquals(newPrefs, PrioritiseProjects.bumpPriority(groups, projects));
