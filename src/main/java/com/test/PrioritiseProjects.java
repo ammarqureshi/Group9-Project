@@ -25,7 +25,7 @@ public class PrioritiseProjects {
 	
 	public static String bumpPriority (String groups, int[]priorityProjects) {
 		String []preferences = groups.split("\n");
-		for (int i = 0; i<preferences.length;i++) {
+		for (int i = 1; i<preferences.length;i++) {	//start at 1 as 0 is num of projects
 			Scanner scanner = new Scanner(preferences[i]);
 			int preferencePos = 0;
 			scanner.nextInt();  //removes group number 
