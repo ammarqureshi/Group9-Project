@@ -352,6 +352,29 @@ public class Hungarian
     	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
     	System.out.println(result);
 	 }
+	/*This main will implement the prioritisation of projects and generating happiness score.
+	public static void main(String[] args) throws Exception
+    	{
+    	boolean priorityProjectsFilled = false;
+    	while (priorityProjectsFilled == false) {
+    	//run with command line args with first and second file
+    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
+    	String preferences = getStringFromFile(args[0], "not implemented yet but will be args[1]");
+    	System.out.println(result);
+    	HungarianHappiness happy = new Hungarian Happiness();
+    	PrioritiseProjects priority = new PrioritiseProjects();
+    	if (priority.AllAllocated(results, "not yet implemented but int array of priority projects") == true {
+    		double[] happyScore = happy.happinessScore(preferences, result);
+    		System.out.println("All priority projects allocated! \nThe happiness score is " + happyScore[0] 
+    			+ "% happy, " + happyScore[1] + "% middling, " + happyScore[2] + "% unhappy.");
+    			priorityProjectsFilled = true;
+    	}
+    	else {
+    		double[] happyScore = happy.happinessScore(preferences, result);
+    		System.out.println("Not all priority projects allocated! \nThe happiness score is " + happyScore[0] 
+    			+ "% happy, " + happyScore[1] + "% middling, " + happyScore[2] + "% unhappy.");    		
+    	}
+	 }*/
        
 }
 

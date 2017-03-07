@@ -11,6 +11,7 @@ public class PrioritiseProjects {
 		for (int i = 0 ; i<priorityProjects.length; i++) {
 			boolean projectAllocated = false;
 			while(scanner.hasNextInt() == true) {
+				scanner.nextInt():	//skips the group number in the results
 				int nextResult = scanner.nextInt();
 				if (priorityProjects[i] == nextResult) {
 					projectAllocated = true;
@@ -24,8 +25,9 @@ public class PrioritiseProjects {
 		return AllAllocated;
 	}
 	
-	public static String[] bumpPriority (String[] preferences, int[]priorityProjects) {
-		for (int i = 0; i<preferences.length;i++) {
+	public static String bumpPriority (String groups, int[]priorityProjects) {
+		String []preferences = groups.split("\n");
+		for (int i = 1; i<preferences.length;i++) {	//start at 1 as 0 is num of projects
 			Scanner scanner = new Scanner(preferences[i]);
 			int preferencePos = 0;
 			scanner.nextInt();  //removes group number 
@@ -50,8 +52,12 @@ public class PrioritiseProjects {
 						.replaceAll(",", "");
 					}
 				}
-			}
+			}			
 		}
-		return preferences;
+		String newGroups = new String();
+		for (int i = 0; i< preferences.length; i++) {
+			newGroups += preferences[i], "\n";
+		}
+		return newGroups;
 	}
 }
