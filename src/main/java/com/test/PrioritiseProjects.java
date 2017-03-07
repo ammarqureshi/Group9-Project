@@ -9,7 +9,7 @@ public class PrioritiseProjects {
 		for (int i = 0 ; i<priorityProjects.length; i++) {
 			boolean projectAllocated = false;
 			while(scanner.hasNextInt() == true) {
-				scanner.nextInt():	//skips the group number in the results
+				scanner.nextInt();	//skips the group number in the results
 				int nextResult = scanner.nextInt();
 				if (priorityProjects[i] == nextResult) {
 					projectAllocated = true;
@@ -54,7 +54,7 @@ public class PrioritiseProjects {
 		}
 		String newGroups = new String();
 		for (int i = 0; i< preferences.length; i++) {
-			newGroups += preferences[i], "\n";
+			newGroups += preferences[i] + "\n";
 		}
 		return newGroups;
 	}
