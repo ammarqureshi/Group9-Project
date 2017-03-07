@@ -11,7 +11,7 @@ public class HungarianHappiness {
 	 */
 	public static double[] happinessScore(String preferences, String results) {
 		String []groups = preferences.split("\n");
-		int numOfGroups = groups.length;
+		int numOfGroups = groups.length-1;
 		double numOfHappy = 0;		//these are the number of groups that fall within our 3 percentiles
 		double numOfMiddling = 0;
 		double numOfUnhappy = 0;
