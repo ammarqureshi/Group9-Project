@@ -7,7 +7,7 @@ public class Demo {
 		String result = Hungarian.getAssignments(lastYears, null);
 		System.out.println(result);
 		double[] happinessScore = HungarianHappiness.happinessScore(lastYears, result);
-		String happinessResults = "The happiness score for this allocation is " +happinessScore[0] + "% Happy, " 
+		String happinessResults = "The happiness score for this allocation is, " +happinessScore[0] + "% Happy, " 
 			+happinessScore[1] + "% Middling and " +happinessScore[2] + "% Unhappy.";
 		/*while (PrioritiseProjects.AllAllocated(result, priorityProjects) == false) {
 			lastYears = PrioritiseProjects.bumpPriority(lastYears, priorityProjects);
