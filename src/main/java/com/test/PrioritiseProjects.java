@@ -25,8 +25,8 @@ public class PrioritiseProjects {
 	}
 
 
-	public static String[] bump(String[] groupPrefs, int[] priorityProjects){
-
+	public static String bump(String groups, int[] priorityProjects){
+		String[]groupPrefs = groups.split("\n");
 		String[] updatedPrefs = new String[groupPrefs.length];
 
 		for(int i=0;i<groupPrefs.length;i++){
@@ -51,8 +51,11 @@ public class PrioritiseProjects {
 			updatedPrefs[i] = Arrays.toString(prefs).replaceAll("\\[|\\]|,", "");
 
 		}
-
-		return updatedPrefs;
+		String newGroups = new String();
+		for (int i = 0; i< updatedPrefs.length; i++) {
+			newGroups += updatedPrefs[i] + "\n";
+		}
+		return newGroups;
 	}
 
 
