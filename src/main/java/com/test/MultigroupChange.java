@@ -3,42 +3,44 @@ package com.test;
 public class MultigroupChange {
 
 	public static int [] projects;
+	public static int [][] newGroups;
 	
-	public static int [] multiSort(int [][] groups, int [] multiprojs, int [] amountGroups)
+	public static int [][] multiSort(int [][] groups, int [] multiprojs, int [] amountGroups)
 	{
+		newGroups = groups;
 		for(int i = 0; i < multiprojs.length; i++)
 		{
 			projects = assignForProject(groups, multiprojs[i], amountGroups[i]);
-			for(int j = 0; j < projects.length; j++)
+			if(changeMade(groups, newGroups))
 			{
-				System.out.println(projects[i] + "   " + (i+1));
+				for(int j = 0; j < projects.length; j++)
+				{
+					System.out.println(projects[j] + "   " + (i+1));
+				}
 			}
+			else
+				System.out.println("No change made");
 		}
-		return null;
+		return newGroups;
 	}
 	
 	public static int [] assignForProject(int [][] groups, int project, int amount)
 	{
-		int choice = 1, count = 0;
+		int choice = 1,count = 0, max = findMax(groups);
 		int [] newProjs  = new int[amount];
 		boolean full = full(newProjs);
-		if(full == false)
-		{
-			for(int i = 0; i < groups.length; i++)
+		while(full == false)
+		{	newProjs = assignGroups(groups, newProjs, project,choice,count);
+			full = full(newProjs);
+			if(full == false)
 			{
-				if(count <= newProjs.length)
-				{
-					if(groups[i][choice] == project)
-					{
-						addElement(newProjs,count,i);
-						count++;
-					}
-					full = full(newProjs);
-				}
-				else
-				{
-					full = true;
-				}
+				count++;
+				choice++;
+			}
+			if (choice > max)
+			{
+				full = true;
+				System.out.println("Error. Could not assign groups");
 			}
 		}
 		return newProjs;
@@ -56,24 +58,61 @@ public class MultigroupChange {
 		return true;
 	}
 	
-	public static int [] assignGroups(int [][] groups, int count,int [] newProjs, int choice, int project)
+	public static int [] assignGroups(int [][] groups,int [] newProjs, int project,int choice,int count)
 	{
+		System.out.println("Count = " + count);
 		for(int i = 0; i < groups.length; i++)
 		{
 			if(count <= newProjs.length)
 			{
-				if(groups[i][choice] == project)
+				if((groups[i] != null) && (choice < groups[i].length))
 				{
-					addElement(newProjs,count,i);
-					count++;
+					if(groups[i][choice] == project)
+					{
+						addElement(newProjs,count,i);
+						count++;
+					}
 				}
 			}
 		}
 		return newProjs;
 	}
+	
 	public static int [] addElement(int [] projs, int index, int element)
 	{
-		projs[index] = element;
+		if(projs[index] == 0)
+		{
+			projs[index] = element;
+			newGroups[element] = null;
+		}
 		return projs;
+	}
+	
+	public static boolean changeMade(int [][] groups, int [][] newGroups)
+	{
+		for(int i = 0; i < groups.length;i++)
+		{
+			for(int j = 0; j < groups[i].length;j++)
+			{
+				if(newGroups[i][j] != groups[i][j])
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static int findMax(int [][] groups)
+	{
+		int max = 0;
+		for(int i = 0; i < groups.length; i++)
+		{
+			if(groups[i].length >= max)
+			{
+				max = groups[i].length;
+			}
+		}
+		return max;
 	}
 }
