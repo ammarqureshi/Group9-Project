@@ -7,10 +7,11 @@ public class PrioritiseProjects {
 
 	public static boolean AllAllocated(String results, int[]priorityProjects) {
 		boolean AllAllocated = true;
-		Scanner scanner = new Scanner(results);
 		for (int i = 0 ; i<priorityProjects.length; i++) {
+			Scanner scanner = new Scanner(results);
 			boolean projectAllocated = false;
 			while(scanner.hasNextInt() == true) {
+				scanner.nextInt();
 				int nextResult = scanner.nextInt();
 				if (priorityProjects[i] == nextResult) {
 					projectAllocated = true;
@@ -19,7 +20,6 @@ public class PrioritiseProjects {
 			if (projectAllocated != true) {
 				AllAllocated = false;
 			}
-			scanner = new Scanner(results);
 		}
 		return AllAllocated;
 	}
@@ -29,7 +29,7 @@ public class PrioritiseProjects {
 		String[]groupPrefs = groups.split("\n");
 		String[] updatedPrefs = new String[groupPrefs.length];
 
-		for(int i=0;i<groupPrefs.length;i++){
+		for(int i=1;i<groupPrefs.length;i++){
 			//parse the preferences of each group
 			String[] prefs = groupPrefs[i].split(" ");
 
@@ -56,6 +56,7 @@ public class PrioritiseProjects {
 			newGroups += updatedPrefs[i] + "\n";
 		}
 		return newGroups;
+
 	}
 
 
