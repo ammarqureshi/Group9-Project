@@ -22,20 +22,20 @@ public class Demo {
 		}
 		String result = Hungarian.getAssignments(lastYears, null);
 		System.out.println(result);
-		double[] happinessScore = HungarianHappiness.happinessScore(lastYears, result);
-		String happinessResults = "The happiness score for this allocation is " +happinessScore[0] + "% Happy, " 
-			+happinessScore[1] + "% Middling and " +happinessScore[2] + "% Unhappy.";
-		System.out.println(happinessResults);
-		String lastYearsBumped = lastYears;
-		for (int j = 0; j<10; j++) {
-			lastYearsBumped = PrioritiseProjects.bump(lastYearsBumped, priProjects);
-			result = Hungarian.getAssignments(lastYearsBumped, null);
-			System.out.println(result);
-			happinessScore = HungarianHappiness.happinessScore(lastYears, result);
-			happinessResults = "The happiness score for this allocation is " +happinessScore[0] + "% Happy, " 
-			+happinessScore[1] + "% Middling and " +happinessScore[2] + "% Unhappy.";
-			System.out.println(happinessResults);
-		}
+//		double[] happinessScore = HungarianHappiness.happinessScore(lastYears, result);
+//		String happinessResults = "The happiness score for this allocation is " +happinessScore[0] + "% Happy, " 
+//			+happinessScore[1] + "% Middling and " +happinessScore[2] + "% Unhappy.";
+//		System.out.println(happinessResults);
+//		String lastYearsBumped = lastYears;
+//		for (int j = 0; j<10; j++) {
+//			lastYearsBumped = PrioritiseProjects.bump(lastYearsBumped, priProjects);
+//			result = Hungarian.getAssignments(lastYearsBumped, null);
+//			System.out.println(result);
+//			happinessScore = HungarianHappiness.happinessScore(lastYears, result);
+//			happinessResults = "The happiness score for this allocation is " +happinessScore[0] + "% Happy, " 
+//			+happinessScore[1] + "% Middling and " +happinessScore[2] + "% Unhappy.";
+//			System.out.println(happinessResults);
+//		}
 	}
 
 }
