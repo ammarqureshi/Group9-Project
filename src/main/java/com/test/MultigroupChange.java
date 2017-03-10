@@ -17,22 +17,31 @@ public class MultigroupChange {
 		return null;
 	}
 	
-	public static int [] assignForProject(int [][] groups, int number, int amount)
+	public static int [] assignForProject(int [][] groups, int project, int amount)
 	{
-		int index = 0, count = 0;
+		int choice = 1, count = 0;
 		int [] newProjs  = new int[amount];
-		boolean full = full(projects);
-		while(full == false)
+		boolean full = full(newProjs);
+		if(full == false)
 		{
 			for(int i = 0; i < groups.length; i++)
 			{
-				if(count < newProjs.length)
+				if(count <= newProjs.length)
 				{
-					//if()
+					if(groups[i][choice] == project)
+					{
+						addElement(newProjs,count,i);
+						count++;
+					}
+					full = full(newProjs);
+				}
+				else
+				{
+					full = true;
 				}
 			}
 		}
-		return projects;
+		return newProjs;
 	}
 	
 	public static boolean full(int [] projs)
@@ -47,9 +56,24 @@ public class MultigroupChange {
 		return true;
 	}
 	
+	public static int [] assignGroups(int [][] groups, int count,int [] newProjs, int choice, int project)
+	{
+		for(int i = 0; i < groups.length; i++)
+		{
+			if(count <= newProjs.length)
+			{
+				if(groups[i][choice] == project)
+				{
+					addElement(newProjs,count,i);
+					count++;
+				}
+			}
+		}
+		return newProjs;
+	}
 	public static int [] addElement(int [] projs, int index, int element)
 	{
-		//projs[index] 
-		return null;
+		projs[index] = element;
+		return projs;
 	}
 }
