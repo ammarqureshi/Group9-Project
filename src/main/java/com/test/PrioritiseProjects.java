@@ -28,7 +28,7 @@ public class PrioritiseProjects {
 	public static String bump(String groups, int[] priorityProjects){
 		String[]groupPrefs = groups.split("\n");
 		String[] updatedPrefs = new String[groupPrefs.length];
-
+		updatedPrefs[0] = groupPrefs[0];
 		for(int i=1;i<groupPrefs.length;i++){
 			//parse the preferences of each group
 			String[] prefs = groupPrefs[i].split(" ");
