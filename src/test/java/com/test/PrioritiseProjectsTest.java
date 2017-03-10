@@ -54,10 +54,10 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void OnePriorityProjectPriorityBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 6 7 8 9 11 10 12\n"
+				"12\n1 1 2 3 4 5 6 7 8 9 11 10 12\n"
 		);
 		int[] projects = {11};
 		Assert.assertEquals(newPrefs, PrioritiseProjects.bump(groups, projects));
@@ -69,12 +69,12 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void ProjectAlreadyHighestPriority(){
 		String groups = new String(
-				"2 5 6 9 10"
+				"12\n2 5 6 9 10"
 		);
 	
 		
 		String newPrefs = new String(
-				"2 5 6 9 10\n"
+				"12\n2 5 6 9 10\n"
 		);
 		
 		int[] projects = {5};
@@ -85,10 +85,10 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void FivePriorityProjectPriorityBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 7 8 9 10 11 12"
+				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 7 8 6 10 11 12 9\n"
+				"12\n1 1 2 3 4 5 7 8 6 10 11 12 9\n"
 		);
 		int[] projects = {10, 11, 12, 8, 7};
 		Assert.assertEquals(newPrefs, PrioritiseProjects.bump(groups, projects));
@@ -99,11 +99,11 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void TwoGroupPriorityProjectBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 10 8 9\n" +
+				"12\n1 1 2 3 4 5 6 10 8 9\n" +
 				"2 9 10 5 6 12 18 1 6 3"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 10 6 8 9\n" +
+				"12\n1 1 2 3 4 5 10 6 8 9\n" +
 				"2 10 9 5 6 12 18 1 6 3\n"
 		);
 		int[] projects = {10};
@@ -113,12 +113,12 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void ThreeGroupPriorityProjectBumped() {
 		String groups = new String(
-				"1 1 2 3 4 5 6 10 8 9\n" +
+				"12\n1 1 2 3 4 5 6 10 8 9\n" +
 				"2 9 10 5 6 12 18 1 6 3\n" +
 				"3 10 1 9 8 7 3 5 12 11"
 		);
 		String newPrefs = new String(
-				"1 1 3 2 4 5 10 6 8 9\n" +
+				"12\n1 1 3 2 4 5 10 6 8 9\n" +
 				"2 10 9 5 6 12 18 1 3 6\n" +
 				"3 10 1 9 8 3 7 5 12 11\n"
 
@@ -132,11 +132,11 @@ public class PrioritiseProjectsTest {
 	@Test
 	public void GroupPriorityProjectNotBumped(){
 		String groups = new String(
-				"1 1 2 3 4 5 6 10 8 9\n" +
+				"12\n1 1 2 3 4 5 6 10 8 9\n" +
 				"2 9 10 5 6 12 18 1 6 3"
 		);
 		String newPrefs = new String(
-				"1 1 2 3 4 5 6 10 8 9\n" +
+				"12\n1 1 2 3 4 5 6 10 8 9\n" +
 				"2 9 10 5 6 12 18 1 6 3\n"
 		);
 		int[] projects = {15};
