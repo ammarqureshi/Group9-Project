@@ -9,9 +9,11 @@ public class SimpleHungarianTest {
 	//Simplest test
 	@Test
 	public void simplestTest() {
-		String oneGroupPreference = "1 \n" +
-								  	"1 1\n";
-		String result = Hungarian.getAssignments(oneGroupPreference, null);
+		String projectInfo = 
+				"Projects\n" +
+				"1\n";
+		String oneGroupPreference = "1 1\n";
+		String result = MainProgram.getAssignments(oneGroupPreference, projectInfo);
 		String expected = "1 1\n";
 		assertEquals(expected, result);
 	}
@@ -20,28 +22,35 @@ public class SimpleHungarianTest {
 	//Group names should be arbitrary
 	@Test
 	public void namingTest() {
-		String oneGroupPreference = "1 \n" +
-								  	"100 1\n";
-		String result = Hungarian.getAssignments(oneGroupPreference, null);
+		String projectInfo = 
+				"Projects\n" +
+				"1\n";
+		String oneGroupPreference = "100 1\n";
+		String result = MainProgram.getAssignments(oneGroupPreference, projectInfo);
 		String expected = "100 1\n";
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void oneGroupNoPreference() {
-		String oneGroupPreference = "1 \n" +
-								  	"1\n";
-		String result = Hungarian.getAssignments(oneGroupPreference, null);
+		String projectInfo = 
+				"Projects\n" +
+				"1\n";
+		String oneGroupPreference = "1\n";
+		String result = MainProgram.getAssignments(oneGroupPreference, projectInfo);
 		String expected = "1 1\n";
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void twoGroupsFirstChoices() {
-		String twoGroupPreferences = "2 \n" +
-								     "1 1 2\n" +
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n";
+		String twoGroupPreferences = "1 1 2\n" +
 								     "2 2 1\n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		String expected = "1 1\n" +
 						  "2 2\n";
 		assertEquals(expected, result);
@@ -50,10 +59,13 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void twoGroupsOneNoPreference() {
-		String twoGroupPreferences = "2 \n" +
-								     "1 1 2\n" +
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n";
+		String twoGroupPreferences = "1 1 2\n" +
 								     "2 \n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		String expected = "1 1\n" +
 						  "2 2\n";
 		assertEquals(expected, result);
@@ -62,10 +74,13 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void twoGroupsNoPreferences() {
-		String twoGroupPreferences = "2 \n" +
-								     "1 \n" +
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n";
+		String twoGroupPreferences ="1 \n" +
 								     "2 \n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		//doesnt matter which as long as one of these two!
 		String expected1 = "1 1\n" +
 				           "2 2\n";
@@ -77,11 +92,15 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void threeGroupsFirstChoices() {
-		String twoGroupPreferences = "3 \n" +
-								     "1 1 2\n" +
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n" +
+				"3\n";
+		String twoGroupPreferences = "1 1 2\n" +
 								     "2 2 1\n" +
 								     "3 3\n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		String expected = "1 1\n" +
 						  "2 2\n" +
 						  "3 3\n";
@@ -90,11 +109,17 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void threeGroupsFirstChoicesExtraPreferences() {
-		String twoGroupPreferences = "5 \n" +
-								     "1 1 2 3 4 5\n" +
+		String projectInfo = 
+			"Projects\n" +
+			"1\n" +
+			"2\n" +
+			"3\n" +
+			"4\n" +
+			"5\n";
+		String twoGroupPreferences = "1 1 2 3 4 5\n" +
 								     "2 2 3 4 5 1\n" +
 								     "3 3 4 5 1 2\n";
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		String expected = "1 1\n" +
 						  "2 2\n" +
 						  "3 3\n";
@@ -104,11 +129,16 @@ public class SimpleHungarianTest {
 	//Another check for group names being arbitrary
 	@Test
 	public void threeGroupsFirstChoicesNamingCheck() {
-		String threeGroupPreferences = "3 \n" +
-								     "X 1\n" +
-								     "Y 2\n" +
-								     "Z 3\n";
-		String result = Hungarian.getAssignments(threeGroupPreferences, null);
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n" +
+				"3\n";
+		String threeGroupPreferences = 
+				 "X 1\n" +
+			     "Y 2\n" +
+			     "Z 3\n";
+		String result = MainProgram.getAssignments(threeGroupPreferences, projectInfo);
 		String expected = "X 1\n" +
 						  "Y 2\n" +
 						  "Z 3\n";
@@ -118,11 +148,15 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void threeGroupsContention() {
-		String twoGroupPreferences = "3 \n" +
-								     "1 1 2 3\n" +	// should get their 1st
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n" +
+				"3\n";
+		String twoGroupPreferences = "1 1 2 3\n" +	// should get their 1st
 								     "2 2 1 3\n" +  // should get their 1st
 								     "3 1 3 2\n";	// should get their 2nd (alternative is someone else gets 3rd)
-		String result = Hungarian.getAssignments(twoGroupPreferences, null);
+		String result = MainProgram.getAssignments(twoGroupPreferences, projectInfo);
 		String expected = "1 1\n" +
 						  "2 2\n" +
 						  "3 3\n";
@@ -131,7 +165,25 @@ public class SimpleHungarianTest {
 
 	@Test
 	public void lastYearsPreferences() {
-		String lastYears = "16\n" +
+		String projectInfo = 
+				"Projects\n" +
+				"1\n" +
+				"2\n" +
+				"3\n" +
+				"4\n" +
+				"5\n" +
+				"6\n" +
+				"7\n" +
+				"8\n" +
+				"9\n" +
+				"10\n" +
+				"11\n" +
+				"12\n" +
+				"13\n" +
+				"14\n" +
+				"15\n" +
+				"16\n";
+		String lastYears =
 			"1 10 11 14\n" +
 			"2 2 14 15 9 7 5 11\n" +
 			"3 6 5 4 9 3\n" +
@@ -147,8 +199,7 @@ public class SimpleHungarianTest {
 			"13 5 9 6 1 12 8 15 4\n" +
 			"14 9 7 6 8 14 15 5 4 16 1 2 3 11 13 10 12\n" +
 			"15 14 7 9 2\n";
-		String result = Hungarian.getAssignments(lastYears, null);
-		System.out.println(result);
+		String result = MainProgram.getAssignments(lastYears, projectInfo);
 		String expected = 
 				"1 10\n" + 
 				"2 2\n" +
