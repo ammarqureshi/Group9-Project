@@ -7,8 +7,8 @@ public class PrioritiseProjects {
 
 	public static boolean AllAllocated(String results, int[]priorityProjects) {
 		boolean AllAllocated = true;
-		Scanner scanner = new Scanner(results);
 		for (int i = 0 ; i<priorityProjects.length; i++) {
+			Scanner scanner = new Scanner(results);
 			boolean projectAllocated = false;
 			while(scanner.hasNextInt() == true) {
 				scanner.nextInt();	//skips the group number in the results
@@ -20,10 +20,47 @@ public class PrioritiseProjects {
 			if (projectAllocated != true) {
 				AllAllocated = false;
 			}
-			scanner = new Scanner(results);
 		}
 		return AllAllocated;
 	}
+
+
+	public static String bump(String groups, int[] priorityProjects){
+		String[]groupPrefs = groups.split("\n");
+		String[] updatedPrefs = new String[groupPrefs.length];
+		updatedPrefs[0] = groupPrefs[0];
+		for(int i=1;i<groupPrefs.length;i++){
+			//parse the preferences of each group
+			String[] prefs = groupPrefs[i].split(" ");
+
+			//iterate through each groups preference
+			//start from index 2 since index 0:group number index 1:already highest priority(cant bump)
+			for(int j=2;j<prefs.length;j++){
+				String p = prefs[j];
+				//check if groups preference has the priority projects
+				for(int k=0;k<priorityProjects.length;k++){
+					if(prefs[j].equals(Integer.toString(priorityProjects[k]))){
+						//swap i and i-1
+						String temp = prefs[j-1];
+						prefs[j-1] = prefs[j];
+						prefs[j] = temp;
+					}
+
+				}
+			}
+			updatedPrefs[i] = Arrays.toString(prefs).replaceAll("\\[|\\]|,", "");
+
+		}
+		String newGroups = new String();
+		for (int i = 0; i< updatedPrefs.length; i++) {
+			newGroups += updatedPrefs[i] + "\n";
+		}
+		return newGroups;
+
+	}
+
+
+
 	
 	public static String bumpPriority (String groups, int[]priorityProjects) {
 		String []preferences = groups.split("\n");
@@ -47,9 +84,8 @@ public class PrioritiseProjects {
 						a[preferencePos] = oldPref;
 						String newPrefs = Arrays.toString(a);
 						preferences[i] = newPrefs;
-						preferences[i] = preferences[i].replace("[", "")
-						.replace("]", "")
-						.replaceAll(",", "");
+						preferences[i] = preferences[i].replaceAll("\\[|\\]|,", "");
+
 					}
 				}
 			}			
