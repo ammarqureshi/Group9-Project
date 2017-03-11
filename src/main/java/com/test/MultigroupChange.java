@@ -5,7 +5,7 @@ public class MultigroupChange {
 	public static int [] projects;
 	public static int [][] newGroups;
 	
-	public static int [][] multiSort(int [][] groups, int [] multiprojs, int [] amountGroups)
+	public int [][] multiSort(int [][] groups, int [] multiprojs, int [] amountGroups)
 	{
 		newGroups = groups;
 //		for(int i = 0; i < groups.length; i++)
