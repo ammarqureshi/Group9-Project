@@ -92,7 +92,7 @@ public class MultigroupChange {
 	{
 		int count =0;
 		//boolean assigned;
-		System.out.println("Size = " + newProjs.length);
+		//System.out.println("Size = " + newProjs.length);
 		for(int i = 0; i < newProjs.length; i++)
 		{
 			//System.out.println("Next Project: " + newProjs[i]);
