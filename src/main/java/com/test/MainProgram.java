@@ -9,7 +9,6 @@ public class MainProgram {
 
     
     public static String getAssignments(String preferences, String projDescriptions) {
-    	
     	ProjectData pd = new ProjectData(projDescriptions);
     	PreferenceParser pp = new PreferenceParser(pd);
         int[][] cos = pp.getCostMatrixForPreferences(preferences);
@@ -26,7 +25,8 @@ public class MainProgram {
         	if (groupRowToName.get(i) != null) {
         		String groupRowName = groupRowToName.get(i);
         		int projectNum = pd.getProjNumForColNum(result[i]);
-            	resultString += groupRowName + " " + projectNum + "\n";
+        		String projNumString = projectNum == ProjectData.OWN_PROJECT ? "OP" : "" + projectNum;
+            	resultString += groupRowName + " " + projNumString + "\n";
         	}
         }
         return resultString;
@@ -45,17 +45,16 @@ public class MainProgram {
     	return text;
     }
    
-    public static String assignFromFileInput(String preferencesPath, String groupsPath) {
+    public static String assignFromFileInput(String preferencesPath, String projectInfoPath) {
     	String preferences = getStringFromFile(preferencesPath);
-    	//null for now because we haven't got group descriptions sorted!
-    	//String groupDescriptions = getStringFromFile(groupsPath);
-    	return getAssignments(preferences, null);
+    	String projDescriptions = getStringFromFile(projectInfoPath);
+    	return getAssignments(preferences, projDescriptions);
     }
     
     public static void main(String[] args) throws Exception
     {
     	//run with command line args with first and second file
-    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
+    	String result = assignFromFileInput(args[0], args[1]);
     	System.out.println(result);
 	 }
 
