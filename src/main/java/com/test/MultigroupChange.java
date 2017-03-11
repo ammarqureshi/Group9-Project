@@ -103,7 +103,7 @@ public class MultigroupChange {
 				{
 					if((choice < groups[j].length) && (newProjs[i] == 0))
 					{
-						System.out.println("DIS NIGGA CALLED");
+						//System.out.println("DIS NIGGA CALLED");
 						if(groups[i][choice] == project)
 						{
 							System.out.println("Add element.");
