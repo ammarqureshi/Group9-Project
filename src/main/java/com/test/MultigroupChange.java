@@ -32,7 +32,7 @@ public class MultigroupChange {
 				{
 					for(int j = 0; j < projects.length; j++)
 					{
-						System.out.println(multiprojs[i] + "   " + (i+1));
+						System.out.println(multiprojs[i] + "   " + projects[j]);
 					}
 				}
 	//				if(newGroups[i]== null)
