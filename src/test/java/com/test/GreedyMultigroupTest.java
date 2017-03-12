@@ -76,7 +76,61 @@ public class GreedyMultigroupTest {
 		}
 		
 		int [] multiprojs = {1,3,5,7,9,10};
-		int [] amountPerProj = {1,1,1,1,1,1};
+		int [] amountPerProj = {4,5,3,2,3,2};
+		
+		MultigroupChange multi = new MultigroupChange();
+		groups = multi.multiSort(groups, multiprojs, amountPerProj);
+		
+		for(int i = 0; i < groups.length; i++)
+		{
+			System.out.println("Group " + (i+1) + " = " + groups[i]);
+		}
+	}
+	
+	@Test 
+	public void testCase20Groups(){
+		int[][]groups = new int[20][];
+		int size;
+		Random rand = new Random();
+		for(int i = 0; i < groups.length; i++)
+		{
+			size = rand.nextInt(15) + 1;
+			groups[i] = new int[size];
+			for(int j = 0; j < groups[i].length; j++)
+			{
+				groups[i][j] = rand.nextInt(31) + 1;
+			}
+		}
+		
+		int [] multiprojs = {1,3,5,7,9,10};
+		int [] amountPerProj = {4,3,2,2,3,5};
+		
+		MultigroupChange multi = new MultigroupChange();
+		groups = multi.multiSort(groups, multiprojs, amountPerProj);
+		
+		for(int i = 0; i < groups.length; i++)
+		{
+			System.out.println("Group " + (i+1) + " = " + groups[i]);
+		}
+	}
+	
+	@Test 
+	public void testCase30Groups(){
+		int[][]groups = new int[30][];
+		int size;
+		Random rand = new Random();
+		for(int i = 0; i < groups.length; i++)
+		{
+			size = rand.nextInt(30) + 1;
+			groups[i] = new int[size];
+			for(int j = 0; j < groups[i].length; j++)
+			{
+				groups[i][j] = rand.nextInt(31) + 1;
+			}
+		}
+		
+		int [] multiprojs = {1,3,5,7,9,10};
+		int [] amountPerProj = {4,3,2,2,3,5};
 		
 		MultigroupChange multi = new MultigroupChange();
 		groups = multi.multiSort(groups, multiprojs, amountPerProj);
