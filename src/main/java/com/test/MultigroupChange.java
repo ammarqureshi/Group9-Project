@@ -66,7 +66,7 @@ public class MultigroupChange {
 				if (choice > max)
 				{
 					full = true;
-					System.out.println("Error. Could not assign groups for project " + project);
+					//System.out.println("Error. Could not assign groups for project " + project);
 					newProjs = null;
 				}
 			}
@@ -78,10 +78,10 @@ public class MultigroupChange {
 	{
 		for(int i= 0; i < projs.length; i++)
 		{
-			System.out.println("Checking if full: " + projs[i]);
+			//System.out.println("Checking if full: " + projs[i]);
 			if(projs[i] == 0)
 			{
-				System.out.println("Not full");
+				//System.out.println("Not full");
 				return false;
 			}
 		}
@@ -106,7 +106,7 @@ public class MultigroupChange {
 						//System.out.println("DIS NIGGA CALLED");
 						if(groups[j][choice] == project)
 						{
-							System.out.println("Add element.");
+							//System.out.println("Add element.");
 							addElement(newProjs,i,j+1);
 							//assigned = true;
 						}
@@ -133,10 +133,10 @@ public class MultigroupChange {
 		if(projs[index] == 0)
 		{
 			projs[index] = element;
-			newGroups[element] = null;
-			System.out.println("Element added: " + projs[index]);
+			newGroups[element - 1] = null;
+			//System.out.println("Element added: " + projs[index]);
 		}
-		System.out.println("Element added, list is: " + full(projs));
+		//System.out.println("Element added, list is: " + full(projs));
 		return projs;
 	}
 	
