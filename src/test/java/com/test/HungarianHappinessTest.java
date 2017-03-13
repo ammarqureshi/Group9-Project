@@ -3,6 +3,8 @@ package com.test;
 import org.junit.Assert;
 import org.junit.Test;
 
+import HungarianHappiness;
+
 public class HungarianHappinessTest {
 
 	@Test
