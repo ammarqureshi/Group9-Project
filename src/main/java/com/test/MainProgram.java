@@ -6,6 +6,7 @@ import java.security.AllPermission;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class MainProgram {
 
@@ -14,33 +15,55 @@ public class MainProgram {
     	ProjectData pd = new ProjectData(projDescriptions);
     	PreferenceParser pp = new PreferenceParser(pd);
         int[][] cos = pp.getCostMatrixForPreferences(preferences);
+        
 		Hungarian hbm = new Hungarian(cos);
 		int[] result = hbm.execute();
+		
 		String resultString = createResultsString(result, pp, pd);
-		while(!allPriorityProjectsAllocated(resultString, pd)) {
-			//pp.prioritizeProject(costMatrix, projNum);
+		
+		while(!findUnallocatedPriorityProjects(resultString, pd).isEmpty()) {
+
+			for(int i = 0; i < cos.length; i++) {
+				for(int j = 0; j < cos.length; j++)
+					if(cos[i][j] != PreferenceParser.VALUE_UNWANTED_PROJ)
+						cos[i][j]++;
+			}
+			
+			for(Integer unallocNum : findUnallocatedPriorityProjects(resultString, pd)){
+				for(Integer col : pd.getColNumsForProjNum(unallocNum)){
+					for(int i = 0; i < cos.length; i++) {
+						cos[i][col] = cos[i][col] - 1;
+					}
+				}
+			}
+
+			hbm = new Hungarian(cos);
+			result = hbm.execute();
+			resultString = createResultsString(result, pp, pd);
 		}
+		
+		// uncomment this to run happiness testing for all tests easily
+		// System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
         return resultString;
     }
 
-    private static boolean allPriorityProjectsAllocated(String resultString, ProjectData pd) {
+    private static Set<Integer> findUnallocatedPriorityProjects(String resultString, ProjectData pd) {
     	
-    	boolean allAssigned = true;
     	Scanner resultStringScanner = new Scanner(resultString);
-    	HashSet<Integer> assignedProjects = new HashSet<Integer>();
+    	Set<Integer> assignedProjects = new HashSet<Integer>();
     	
     	while(resultStringScanner.hasNextLine()) {
-    		assignedProjects.add(Integer.parseInt(resultStringScanner.nextLine().split(" ")[1]));
+    		String token = resultStringScanner.nextLine().split(" ")[1];
+    		if(!token.equalsIgnoreCase("OP"))
+    			assignedProjects.add(Integer.parseInt(token));
     	}
     	
     	resultStringScanner.close();
     	
-    	for(Integer priorityProj : pd.getPriorityProjects())
-    	{
-    		if(!assignedProjects.contains(priorityProj))
-    			allAssigned = false;
-    	}
-    	return allAssigned;
+    	Set<Integer> unassignedPriorityProjects = (HashSet<Integer>) pd.getPriorityProjects().clone();
+
+    	unassignedPriorityProjects.removeAll(assignedProjects);
+    	return unassignedPriorityProjects;
     }
     
     private static String createResultsString(int[] result, PreferenceParser pp, ProjectData pd) {

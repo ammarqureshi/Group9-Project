@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class PreferenceParser {
 	
-	public final static int VALUE_UNWANTED_PROJ = 999;
+	public final static int VALUE_UNWANTED_PROJ = 101;
 	
 	ProjectData pd;
 	HashMap<String, Integer> groupNameToRow = new HashMap<String, Integer>();
@@ -47,7 +47,11 @@ public class PreferenceParser {
 				}
 				else
 					projNum = Integer.parseInt(tokens[i]);
-				int weight = highestWeightForRow[rowForGroup] + 1;
+				int weight = 0;
+				if(projNum == ProjectData.OWN_PROJECT && !pd.getVettedOwnProjects().contains(groupName))
+					weight = VALUE_UNWANTED_PROJ;
+				else
+					weight = highestWeightForRow[rowForGroup] + 1;
 				highestWeightForRow[rowForGroup]++;
 				addPreference(costMatrix, rowForGroup, projNum, weight);
 			}

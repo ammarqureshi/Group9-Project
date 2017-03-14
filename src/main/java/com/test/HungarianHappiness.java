@@ -57,5 +57,12 @@ public class HungarianHappiness {
 		double[] finalScore = new double[]{numOfHappy, numOfMiddling, numOfUnhappy};
 		return finalScore;
 	}
+	
+	public static String resultToString(double[] results) {
+		String result = "% in top 3 - " + results[0] + "\n" +
+				 "% in next 3 - " + results[1] + "\n" +
+				 "% other preference - " + results[2] + "\n";
+		return result;
+	}
 
 }

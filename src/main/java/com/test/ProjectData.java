@@ -21,7 +21,7 @@ public class ProjectData {
 	//keep list of priority projects
 	private HashSet<Integer> priorityProjects = new HashSet<Integer>();
 	//keep list of allowed own projects
-	private HashSet<Integer> vettedOwnProjects = new HashSet<Integer>();
+	private HashSet<String> vettedOwnProjects = new HashSet<String>();
 	
 	public int totalProjectColumns() {
 		return nextFreeColNumber;
@@ -31,7 +31,7 @@ public class ProjectData {
 		return priorityProjects;
 	}
 
-	public HashSet<Integer> getVettedOwnProjects() {
+	public HashSet<String> getVettedOwnProjects() {
 		return vettedOwnProjects;
 	}
 
@@ -111,7 +111,7 @@ public class ProjectData {
 					projectNumToColNums.put(OWN_PROJECT, allColsForOwnProjs);
 					
 					while(i < lines.length) {
-						vettedOwnProjects.add(Integer.parseInt(lines[i]));
+						vettedOwnProjects.add(lines[i]);
 						i++;
 					}
 				}

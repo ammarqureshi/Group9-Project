@@ -41,7 +41,7 @@ public class AllConstraintsTest {
 				"7 2\n" +
 				"8 5\n";
 		
-		//assertEquals(expected, result);
+		assertEquals(expected, result);
 	}
 	
 	@Test
@@ -58,7 +58,6 @@ public class AllConstraintsTest {
 				"1 1 2 3\n"  +
 				"2 2 1 3\n";
 		String result = MainProgram.getAssignments(groupPreferences, projectInfo);
-		System.out.println(result);
 		String expected = 
 				"1 3\n" +
 				"2 2\n";
@@ -66,7 +65,7 @@ public class AllConstraintsTest {
 				"1 1\n" +
 				"2 3\n";
 		boolean success = expected.equals(result) || expected2.equals(result);
-		//assert(success);
+		assert(success);
 	}
 
 }

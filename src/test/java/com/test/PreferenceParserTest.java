@@ -66,7 +66,7 @@ public class PreferenceParserTest {
 				"2\n" +
 				"OwnProjects\n" +
 				"1\n" +
-				"1\n";
+				"3\n";
 		String threeGroups =
 				"1 1 2\n" +
 				"2 2 1\n" +
@@ -75,7 +75,7 @@ public class PreferenceParserTest {
 		PreferenceParser pp = new PreferenceParser(pd);
 		int[][] result = pp.getCostMatrixForPreferences(threeGroups);
 		int unwanted = PreferenceParser.VALUE_UNWANTED_PROJ;
-		int[][] expected = {{1, 2, 999}, {2, 1, 999}, {2, 2, 1}};
+		int[][] expected = {{1, 2, unwanted}, {2, 1, unwanted}, {2, 2, 1}};
 		assertEquals(expected, result);
 	}
 }
