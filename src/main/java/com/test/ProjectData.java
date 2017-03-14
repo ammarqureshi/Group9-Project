@@ -18,15 +18,23 @@ public class ProjectData {
 	private int nextFreeColNumber = 0;
 	private int maxOwnProjects = 0;
 
-	//keep list of priority projects as we go so we can return array for Thomas' code
-	private List<Integer> priorityProjects = new LinkedList<Integer>();
-	//keep list of allowed own projects as we go so we can return array for Ezi's code
-	private List<Integer> vettedOwnProjects = new LinkedList<Integer>();
+	//keep list of priority projects
+	private HashSet<Integer> priorityProjects = new HashSet<Integer>();
+	//keep list of allowed own projects
+	private HashSet<Integer> vettedOwnProjects = new HashSet<Integer>();
 	
 	public int totalProjectColumns() {
 		return nextFreeColNumber;
 	}
 	
+	public HashSet<Integer> getPriorityProjects() {
+		return priorityProjects;
+	}
+
+	public HashSet<Integer> getVettedOwnProjects() {
+		return vettedOwnProjects;
+	}
+
 	public HashSet<Integer> getColNumsForProjNum(int projNum) {
 		return projectNumToColNums.get(projNum);
 	}

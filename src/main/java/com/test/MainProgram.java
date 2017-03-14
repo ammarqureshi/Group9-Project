@@ -14,9 +14,13 @@ public class MainProgram {
         int[][] cos = pp.getCostMatrixForPreferences(preferences);
 		Hungarian hbm = new Hungarian(cos);
 		int[] result = hbm.execute();
+		String resultString = createResultsString(result, pp, pd);
 		
+        return resultString;
+    }
+    
+    private static String createResultsString(int[] result, PreferenceParser pp, ProjectData pd) {
 		HashMap<Integer, String> groupRowToName = pp.getRowToGroupName();
-		
 		String resultString = "";
 	 	int matrixSize = pd.totalProjectColumns();
         for(int i=0; i<matrixSize; i++)
