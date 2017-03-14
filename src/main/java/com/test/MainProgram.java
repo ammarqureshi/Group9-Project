@@ -2,7 +2,9 @@ package com.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.AllPermission;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class MainProgram {
@@ -15,8 +17,30 @@ public class MainProgram {
 		Hungarian hbm = new Hungarian(cos);
 		int[] result = hbm.execute();
 		String resultString = createResultsString(result, pp, pd);
-		
+		while(!allPriorityProjectsAllocated(resultString, pd)) {
+			//pp.prioritizeProject(costMatrix, projNum);
+		}
         return resultString;
+    }
+
+    private static boolean allPriorityProjectsAllocated(String resultString, ProjectData pd) {
+    	
+    	boolean allAssigned = true;
+    	Scanner resultStringScanner = new Scanner(resultString);
+    	HashSet<Integer> assignedProjects = new HashSet<Integer>();
+    	
+    	while(resultStringScanner.hasNextLine()) {
+    		assignedProjects.add(Integer.parseInt(resultStringScanner.nextLine().split(" ")[1]));
+    	}
+    	
+    	resultStringScanner.close();
+    	
+    	for(Integer priorityProj : pd.getPriorityProjects())
+    	{
+    		if(!assignedProjects.contains(priorityProj))
+    			allAssigned = false;
+    	}
+    	return allAssigned;
     }
     
     private static String createResultsString(int[] result, PreferenceParser pp, ProjectData pd) {
