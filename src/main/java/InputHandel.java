@@ -1,4 +1,4 @@
-package com.test;
+
 
 import java.util.*;
 
@@ -50,7 +50,7 @@ public class InputHandel
     	}
 	    
 	    //print(costMatrix);
-	    weightUnfilledPreferences();
+	   // weightUnfilledPreferences();
 	    //print(costMatrix);
 	    lineScanner.close();
 		return costMatrix;
