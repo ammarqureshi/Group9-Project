@@ -1,14 +1,6 @@
+package com.test;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
  
 public class Hungarian
 {
@@ -283,101 +275,6 @@ public class Hungarian
             }
         }
     }
-
-    
-    public static String getAssignments(String originalPreferences, String groupDescriptions) {
-    	InputHandel inputH = new InputHandel();
-    	String[] multiGroups = MultiAssign.CreateMultiGroups(originalPreferences, groupDescriptions);
-	String preferences = MultiAssign.editPreferences(originalPreferences, multiGroups);
-        int[][] cos = inputH.parseInput(preferences);
-		Hungarian hbm = new Hungarian(cos);
-		int[] result = hbm.execute();
-		
-		HashMap<Integer, String> groupRowToName = groupRowsToNamesMap(preferences);
-		
-		String resultString = "";
-	 	int r = inputH.matrixSize;
-        for(int i=0;i<r; i++)
-        {
-        	int j = result[i];
-        	//group name followed by project number
-        	if (groupRowToName.get(i) != null) {
-        		String groupRowName = groupRowToName.get(i);
-        		int projectNum = inputH.getColumnProjectNumber(j);
-            	resultString += groupRowName + " " + projectNum + "\n";
-        	}
-        	
-        }
-	resultString = MultiAssign.editResults(resultString, multiGroups);
-        return resultString;
-    }
-    
-    private static HashMap<Integer, String> groupRowsToNamesMap(String preferences) {
-		HashMap<Integer, String> groupNamesToMatrixRow = new HashMap<Integer, String>();
-	    Scanner lineScanner = new Scanner(preferences);
-	    lineScanner.nextLine(); //skip first line
-	    int i = 0;
-	    while(lineScanner.hasNextLine()) {
-	    	// first token is groupname
-	    	String groupName = lineScanner.nextLine().split(" ")[0];
-	    	groupNamesToMatrixRow.put(i, groupName);
-	    	i++;
-	    }
-	    lineScanner.close();
-	    return groupNamesToMatrixRow;
-    }
-    
-    
-    public static String getStringFromFile(String filename) {
-    	String text = "";
-		try {
-			Scanner scanner = new Scanner( new File(filename) );
-	    	text = scanner.useDelimiter("\\A").next();
-	    	scanner.close();
-		} catch (FileNotFoundException e) {
-			System.err.println("File " + filename + " not found!");
-			e.printStackTrace();
-		}
-    	return text;
-    }
-	
-   
-    public static String assignFromFileInput(String preferencesPath, String groupsPath) {
-    	String preferences = getStringFromFile(preferencesPath);
-    	//null for now because we haven't got group descriptions sorted!
-    	//String groupDescriptions = getStringFromFile(groupsPath);
-    	return getAssignments(preferences, null);
-    }
-    
-    public static void main(String[] args) throws Exception
-    {
-    	//run with command line args with first and second file
-    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
-    	System.out.println(result);
-	 }
-	/*This main will implement the prioritisation of projects and generating happiness score.
-	public static void main(String[] args) throws Exception
-    	{
-    	boolean priorityProjectsFilled = false;
-    	while (priorityProjectsFilled == false) {
-    	//run with command line args with first and second file
-    	String result = assignFromFileInput(args[0], "not implemented yet but will be args[1]");
-    	String preferences = getStringFromFile(args[0], "not implemented yet but will be args[1]");
-    	System.out.println(result);
-    	HungarianHappiness happy = new Hungarian Happiness();
-    	PrioritiseProjects priority = new PrioritiseProjects();
-    	if (priority.AllAllocated(results, "not yet implemented but int array of priority projects") == true {
-    		double[] happyScore = happy.happinessScore(preferences, result);
-    		System.out.println("All priority projects allocated! \nThe happiness score is " + happyScore[0] 
-    			+ "% happy, " + happyScore[1] + "% middling, " + happyScore[2] + "% unhappy.");
-    			priorityProjectsFilled = true;
-    	}
-    	else {
-    		double[] happyScore = happy.happinessScore(preferences, result);
-    		System.out.println("Not all priority projects allocated! \nThe happiness score is " + happyScore[0] 
-    			+ "% happy, " + happyScore[1] + "% middling, " + happyScore[2] + "% unhappy.");    		
-    	}
-	 }*/
        
 }
 

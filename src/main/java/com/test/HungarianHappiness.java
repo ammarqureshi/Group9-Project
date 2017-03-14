@@ -1,4 +1,4 @@
-
+package com.test;
 
 import java.util.Scanner;
 public class HungarianHappiness {
@@ -56,6 +56,13 @@ public class HungarianHappiness {
 		numOfUnhappy = (numOfUnhappy/numOfGroups)*100;
 		double[] finalScore = new double[]{numOfHappy, numOfMiddling, numOfUnhappy};
 		return finalScore;
+	}
+	
+	public static String resultToString(double[] results) {
+		String result = "% in top 3 - " + results[0] + "\n" +
+				 "% in next 3 - " + results[1] + "\n" +
+				 "% other preference - " + results[2] + "\n";
+		return result;
 	}
 
 }

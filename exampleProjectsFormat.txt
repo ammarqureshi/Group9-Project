@@ -1,5 +1,4 @@
 "Projects"
-NumberOfProjects
 {ProjectNumber (NumGroups if multigroup) (P for priority)}
 "OwnProjects"
 MaxNumberAllowedOwnProjects
@@ -7,7 +6,6 @@ MaxNumberAllowedOwnProjects
 
 eg - 
 Projects // header for projects
-5        // NumberOfProjects
 1        // ProjectNumbers - n.b. not necessarily consecutive
 2
 4 P      // this is a priority project
