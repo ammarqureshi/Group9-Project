@@ -12,9 +12,6 @@ public class MultigroupStrings {
 		int mulLength = 0, amountLength = 0,i; 
 		int [] multiprojects, amounts;
 		parsetoArray(groups);
-		//InputHandel input = new InputHandel();
-		//newGroups = input.parseInput(groups);
-		//System.out.println(newGroups.length);
 		
 		Scanner mulScanner = new Scanner(multiPs);
 		Scanner amScanner = new Scanner(amountGroups);
@@ -22,7 +19,6 @@ public class MultigroupStrings {
 		{
 			mulLength++;
 			mulScanner.nextInt();
-			//System.out.println(mulLength);
 		}
 		
 		while(amScanner.hasNextInt())
@@ -76,7 +72,7 @@ public class MultigroupStrings {
 				{
 					for(int j = 0; j < projects.length; j++)
 					{
-						System.out.println(multiprojects[i] + "   " + projects[j]);
+						System.out.println(projects[j] + "   " + multiprojects[i]);
 					}
 				}
 	//				if(newGroups[i]== null)
@@ -88,6 +84,7 @@ public class MultigroupStrings {
 	//				System.out.println("No change made");
 			}
 			groups = parsetoString(newGroups);
+			//System.out.println(groups);
 			return groups;
 		}
 		else 
