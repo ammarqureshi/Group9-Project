@@ -121,13 +121,13 @@ public class MultigroupStrings {
 		{	
 			if(groups[i] == null)
 			{
-				newString = newString + "null";
+				newString = newString + "	";
 				//System.out.println(groups[i]);
 			}
 			else
 			{
-				System.out.println(newString);
-					for(int j = 0; j < groups[j].length; j++)
+				//System.out.println(newString);
+					for(int j = 0; j < groups[i].length; j++)
 					{
 						newString = newString + " " + groups[i][j];
 					}
