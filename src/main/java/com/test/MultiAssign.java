@@ -2,10 +2,7 @@ import java.util.Scanner;
 
 public class MultiAssign {
 
-    /*1) Read project info, for each multigroup project add enough extra "fake" projects so groups can be assigned.
-    2) Every time a group has a preference for a multigroup project, add the same weight to each of the "fake" projects.
-    3) Ensure these map back to the correct project number on outputs
-*/
+    
 	public static String[] CreateMultiGroups(String preferences, String info) {
 	String[] multiGroups = new String[1];
 	Scanner stringScan = new Scanner(info);
@@ -13,10 +10,10 @@ public class MultiAssign {
 	String[] projectInfo = info.split("\n");	//splits the info into an array for easier to understand processing
 	int endOfMultiGroups = 0;	//this and the following loop find where the multigroup info ends in the file by searching for the own projects header
 	stringScan = new Scanner(projectInfo[1]); //get the num of projects
-	int numOfProjects = stringScan.nextInt();
+	int OriginalNumOfProjects = stringScan.nextInt();
 	Scanner prefScanner = new Scanner(preferences);
-	int numOfProjs = prefScanner.nextInt();
-	for (int i = 2; i<numOfProjects+2; i++) {	//the +2 is to account for the first two input lines which we skip
+	int numOfProjs = prefScanner.nextInt();	//this variable is duplicated as it changes inside the loop, but it's also needed for the loop
+	for (int i = 2; i<OriginalNumOfProjects+2; i++) {	//the +2 is to account for the first two input lines which we skip
 		stringScan = new Scanner(projectInfo[i]);
 		int proNum = stringScan.nextInt();
 		if (stringScan.hasNextInt()) {
@@ -89,13 +86,13 @@ public class MultiAssign {
 				int addedProj = multiScan.nextInt();
 				for (int j=0; j<splitResults.length; j++) {
 					Scanner resultsScan = new Scanner(splitResults[j]);
-					String newResult = resultsScan.nextInt() + " "; //skip group num
+					String newResult = resultsScan.nextInt() + " "; // group num
 					int allocatedProj = resultsScan.nextInt();
 					if (allocatedProj == addedProj) {
-						newResult += proNum + " ";
+						newResult += proNum + "";
 					}
 					else {
-						newResult += allocatedProj + " ";
+						newResult += allocatedProj + "";
 					}
 					splitResults[j] = newResult;
 				}	
