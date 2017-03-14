@@ -338,6 +338,7 @@ public class Hungarian
 		}
     	return text;
     }
+	
    
     public static String assignFromFileInput(String preferencesPath, String groupsPath) {
     	String preferences = getStringFromFile(preferencesPath);
