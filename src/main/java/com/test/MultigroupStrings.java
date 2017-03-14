@@ -96,22 +96,24 @@ public class MultigroupStrings {
 	
 	public static void parsetoArray(String groups)
 	{
-		String [] x = groups.split("\n");
+		String [] x = groups.split(";");
 		
 		newGroups = new int[x.length][];
-		
+		//System.out.println(x.length);
 		for(int i = 0; i < x.length; i++)
 		{
-			String[] row = x[i].split("[\\r\\n]+");
+			String[] row = x[i].split(" ");
 			newGroups[i] = new int[row.length];
-			
+			//System.out.println(row.length);
 			for(int j = 0; j < row.length; j++)
 			{
 				newGroups[i][j] = Integer.parseInt(row[j]);
-				System.out.println(newGroups[i][j]);
+				//System.out.print(newGroups[i][j] + " ");
 			}
+			//System.out.print("\n");
 		}
 	}
+	
 	public static String parsetoString(int [][] groups)
 	{
 		String newString = "";
@@ -120,13 +122,15 @@ public class MultigroupStrings {
 			if(groups[i] == null)
 			{
 				newString = newString + "null";
+				//System.out.println(groups[i]);
 			}
 			else
 			{
-				for(int j = 0; j < groups[j].length; j++)
-				{
-					newString = newString + " " + groups[i][j];
-				}
+				System.out.println(newString);
+					for(int j = 0; j < groups[j].length; j++)
+					{
+						newString = newString + " " + groups[i][j];
+					}
 			}
 			newString = newString + "\n";
 		}
