@@ -10,6 +10,7 @@ public class OwnProjects {
 	public static void main(String[] args)
 	{
 		/*
+		
 		String progectPrefInArray=
 				 "15\n" +
 			     "1 1 OP 4 5\n" +
@@ -25,13 +26,19 @@ public class OwnProjects {
 							    "1\n" +
 							    "4\n";
 	
-	        
+	        */
 	    
-	     System.out.println(removeNonVet(progectPrefInArray,vettedProjects));
+	   // System.out.println( removeNonVet(progectPrefInArray,vettedProjects));
 	     
-		*/
+		
 	
     } 
+	/**
+	 * removes all OP from all non vetted groups
+	 * @param progectPrefInArray
+	 * @param vettedProjects
+	 * @return String of final groups 
+	 */
 	public static String removeNonVet(String progectPrefInArray,String vettedProjects)
 	{
 		String[] vettedP=null;
@@ -51,7 +58,7 @@ public class OwnProjects {
 	    		  
 	    		  
 		    		  currrentPref=projectPref[i][j];
-		    		  if(currrentPref.equals("OP"))
+		    		  if(currrentPref.equals("OP") ||currrentPref.equals("op") )
 		    		  {
 		    			 // if(vettedP[])
 		    			  if((compareToVetted(vettedP,currentProjectPref))==true)
@@ -72,53 +79,61 @@ public class OwnProjects {
 	      String returningString ="";
 	      
 		     returningString=Arrays.deepToString(projectPref);
-		    // System.out.println(returningString);
+		     
+		    returningString= removeVal(projectPref);
+		   
 	      return returningString;
 	    
 	}
-	/*
-	 //this would be a 2nd approach to it , not working so commented out
-	public static String[][] removeVal(String[][] array)
+	
+	 /**
+	  * 
+	  * @param array
+	  * @return
+	  */
+	public static String removeVal(String[][] array)
 	{
-		
-		//String[][] tempArray= new String[array.length-1][array.length-1];
-
-        ArrayList<String[]> stockout = new ArrayList<String[]>(Arrays.asList(array));
-        System.out.println("length before = " + stockout.size());
-
-        for (int i=0 ; i <= stockout.size(); i++) 
-        {
-            for (int j = 0; j < stockout.size(); j++) {
-                if (array[i][j].equals("-1")) 
-                {
-                    System.out.println("removing " + stockout.get(j)+stockout.get(i));
-                    stockout.remove(i);
-                }
-            }
-        }
-        String[][] remainingStockout = (String[][]) stockout.toArray(new String[][] {});
-        System.out.println("length after = " + remainingStockout.length);
-        return remainingStockout;
-		
-	}*/
+		String stringReturn = "";
+		ArrayList<String> list = new ArrayList<String>();
+		for(int i=0;i<array.length;i++)
+		{
+			for(int j=0;j<array[i].length;j++)
+			{
+				if(!(array[i][j].equals("no")))
+				{
+					list.add(array[i][j]);
+				}
+				else
+				{
+					
+				}
+			}
+		}
+		stringReturn=Arrays.toString(list.toArray());
+		return stringReturn;  
+	}
 	/**
-	 * 
+	 * Checks if the OP passed , the group that it is in is equal to the vetted OP groups
 	 * @param vettedArray
 	 * @param valToCompare
-	 * @return
+	 * @return boolean (true/false)
 	 */
 	public static boolean compareToVetted(String[] vettedArray,int valToCompare)
 	{
 		boolean isNotVetted=true;
-		for(int i=0;i<vettedArray.length;i++)
-		{ int v=1;
-			if(valToCompare==Integer.parseInt(vettedArray[v]))
+		int v=1;
+		for(int i=1;i<vettedArray.length;i++)
+		{
+		
+			if(valToCompare==Integer.parseInt(vettedArray[i]))
 			{
 				isNotVetted=false;
-				break;
+				v++;
+				
 			}
-			v++;
+			
 		}
+		
 		return isNotVetted;
 		
 	}
