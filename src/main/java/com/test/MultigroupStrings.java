@@ -1,27 +1,82 @@
 package com.test;
 
-public class MultigroupChange {
+import java.util.Scanner;
+
+public class MultigroupStrings {
 
 	public static int [] projects;
 	public static int [][] newGroups;
 	
-	public int [][] multiSort(int [][] groups, int [] multiprojs, int [] amountGroups)
+	public static String multiSort(String groups, String multiPs, String amountGroups)
 	{
-		newGroups = groups;
+		int mulLength = 0, amountLength = 0,i; 
+		int [] multiprojects, amounts;
+		parsetoArray(groups);
+		//InputHandel input = new InputHandel();
+		//newGroups = input.parseInput(groups);
+		//System.out.println(newGroups.length);
 		
-		if(multiprojs.length == amountGroups.length)
+		Scanner mulScanner = new Scanner(multiPs);
+		Scanner amScanner = new Scanner(amountGroups);
+		while(mulScanner.hasNextInt())
 		{
-			for(int i = 0; i < multiprojs.length; i++)
+			mulLength++;
+			mulScanner.nextInt();
+			//System.out.println(mulLength);
+		}
+		
+		while(amScanner.hasNextInt())
+		{
+			amountLength++;
+			amScanner.nextInt();
+		}
+		
+		multiprojects = new int [mulLength];
+		amounts = new int [amountLength];
+		
+		Scanner mulScan = new Scanner(multiPs);
+		Scanner amScan = new Scanner(amountGroups);
+		
+		for(i = 0; i < mulLength; i++)
+		{
+			multiprojects[i] = mulScan.nextInt();
+			//System.out.println(multiprojects[i]);
+		}
+		
+		for(i = 0; i < amountLength; i++)
+		{
+			amounts[i] = amScan.nextInt();
+			//System.out.println(amounts[i]);
+		}
+		
+		//newGroups = new int[groups.length()
+		//System.out.println(newGroups);
+//		newGroups = groups;
+//		for(int i = 0; i < groups.length; i++)
+//		{
+//			for(int j =0; j < groups[i].length; j++)
+//			{
+//				System.out.println("Group: " + groups[i][j]);
+//			}
+//		}
+		
+//		for(int j =0; j < amountGroups.length; j++)
+//		{
+//			System.out.println("Groups per proj : " + amountGroups[j]);
+//		}
+		if(mulLength == amountLength)
+		{
+			for(i = 0; i < mulLength; i++)
 			{
 				//System.out.println("Running for project: " + multiprojs[i]);
-				projects = assignForProject(multiprojs[i], amountGroups[i]);
+				projects = assignForProject(multiprojects[i], amounts[i]);
 	//			if(changeMade(groups, newGroups))
 	//			{
 				if(projects != null)
 				{
 					for(int j = 0; j < projects.length; j++)
 					{
-						System.out.println(multiprojs[i] + "   " + projects[j]);
+						System.out.println(multiprojects[i] + "   " + projects[j]);
 					}
 				}
 	//				if(newGroups[i]== null)
@@ -32,12 +87,51 @@ public class MultigroupChange {
 	//			else
 	//				System.out.println("No change made");
 			}
-			return newGroups;
+			groups = parsetoString(newGroups);
+			return groups;
 		}
 		else 
 			return null;
 	}
 	
+	public static void parsetoArray(String groups)
+	{
+		String [] x = groups.split("\n");
+		
+		newGroups = new int[x.length][];
+		
+		for(int i = 0; i < x.length; i++)
+		{
+			String[] row = x[i].split("[\\r\\n]+");
+			newGroups[i] = new int[row.length];
+			
+			for(int j = 0; j < row.length; j++)
+			{
+				newGroups[i][j] = Integer.parseInt(row[j]);
+				System.out.println(newGroups[i][j]);
+			}
+		}
+	}
+	public static String parsetoString(int [][] groups)
+	{
+		String newString = "";
+		for(int i = 0; i < groups.length; i++)
+		{	
+			if(groups[i] == null)
+			{
+				newString = newString + "null";
+			}
+			else
+			{
+				for(int j = 0; j < groups[j].length; j++)
+				{
+					newString = newString + " " + groups[i][j];
+				}
+			}
+			newString = newString + "\n";
+		}
+		return newString;
+	}
 	public static int [] assignForProject(int project, int amount)
 	{
 		//System.out.println("Project: " + project + " Amount: " + amount);
