@@ -285,9 +285,10 @@ public class Hungarian
     }
 
     
-    public static String getAssignments(String preferences, String groupDescriptions) {
+    public static String getAssignments(String originalPreferences, String groupDescriptions) {
     	InputHandel inputH = new InputHandel();
-    	
+    	String[] multiGroups = MultiAssign.CreateMultiGroups(originalPreferences, groupDescriptions);
+	String preferences = MultiAssign.editPreferences(originalPreferences, multiGroups);
         int[][] cos = inputH.parseInput(preferences);
 		Hungarian hbm = new Hungarian(cos);
 		int[] result = hbm.execute();
@@ -307,6 +308,7 @@ public class Hungarian
         	}
         	
         }
+	resultString = MultiAssign.editResults(resultString, multiGroups);
         return resultString;
     }
     
@@ -338,6 +340,7 @@ public class Hungarian
 		}
     	return text;
     }
+	
    
     public static String assignFromFileInput(String preferencesPath, String groupsPath) {
     	String preferences = getStringFromFile(preferencesPath);
