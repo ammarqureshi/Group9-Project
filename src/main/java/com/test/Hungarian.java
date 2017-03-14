@@ -338,61 +338,7 @@ public class Hungarian
 		}
     	return text;
     }
-	/*1) Read project info, for each multigroup project add enough extra "fake" projects so groups can be assigned.
-         2) Every time a group has a preference for a multigroup project, add the same weight to each of the "fake" projects.
-         3) Ensure these map back to the correct project number on outputs
-*/
-    public static int[][] CreateMultiGroups(String preferences) {
-    	String info = getStringFromFile("testProjectsInfo.txt");
-    	int[][] multiGroups = {{}};
-    	Scanner stringScan = new Scanner(info);
-    	String[] projectInfo = info.split("\n");	//splits the info into an array for easier to understand processing
-    	int endOfMultiGroups = 0;	//this and the following loop find where the multigroup info ends in the file by searching for the own projects header
-    	for (int i = 0; i<projectInfo.length; i++) {
-    		if (projectInfo[i]=="OwnProjects") {
-    			endOfMultiGroups = i;
-    		}
-    	}
-    	for (int i = 2; i<endOfMultiGroups; i++) {
-    		stringScan = new Scanner(projectInfo[i]);
-    		int proNum = stringScan.nextInt();
-    		if (stringScan.hasNextInt()) {
-    			int numOfGroups = stringScan.nextInt();
-    			int[] newMGroup = new int[numOfGroups+1];
-    			newMGroup[0] = proNum;
-    			Scanner prefScanner = new Scanner(preferences);
-    			//increase numOfProjectsInPreferences
-    			int numOfProjs = prefScanner.nextInt();
-    			//numOfProjs= numOfGroups;
-    			preferences = numOfProjs + preferences.substring(1, preferences.length());
-    			//create new project with highest number
-    			String[]groupPrefs = preferences.split("\n");
-    			for (int j = 1; j<groupPrefs.length; j++) {
-    				prefScanner = new Scanner(groupPrefs[j]);
-    				int groupNum = prefScanner.nextInt();
-    				while(prefScanner.hasNextInt()) {
-    					if (proNum == prefScanner.nextInt()) {
-    						int index = groupPrefs[j].indexOf(proNum);
-    						String newPref = groupPrefs[j].substring(0,index);
-    						int l = 1;
-    						//change preferences strings
-    						for (int k = numOfProjs+1; k<numOfProjs+numOfGroups; k++) {
-    							newPref += ' ' + k;
-    							newMGroup[l] = k;
-    							l++;
-    						}
-    						newPref += groupPrefs[j].substring(index+numOfGroups, groupPrefs[j].length());
-    						groupPrefs[j] = newPref;
-    					}
-    				}
-    			}
-    			//save number to multiGroup array
-    			multiGroups[i-2] = newMGroup;
-    			
-    		}
-    	}
-    	return multiGroups;
-    }
+	
    
     public static String assignFromFileInput(String preferencesPath, String groupsPath) {
     	String preferences = getStringFromFile(preferencesPath);
