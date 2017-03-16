@@ -10,6 +10,8 @@ public class HungarianHappiness {
 	 * getting a project >6 preferences (unhappy)
 	 */
 	public static double[] happinessScore(String preferences, String results) {
+		preferences= preferences.replaceAll("OP", "0");
+		results = results.replaceAll("OP", "0");
 		String []groups = preferences.split("\n");
 		String []splitResults= results.split("\n");
 		int numOfGroups = groups.length-1;
@@ -30,12 +32,12 @@ public class HungarianHappiness {
 												//they are given the same score as they would receive if it was their last preference+1
 
 			int projectPreference =0;
-			if (splitResults[i-1].contains("OP")) {
+			/*if (splitResults[i-1].contains("OP")) {
 				projectPreference = 1;
 			}
-			else {
+			else {*/
 			int givenProject = resultsScanner.nextInt();
-			int chosenProject = 0;
+			int chosenProject = 999;
 			
 			while (chosenProject != givenProject && notPreferenceProject != true) {
 				if (groupScanner.hasNextInt()) {
@@ -47,7 +49,7 @@ public class HungarianHappiness {
 					notPreferenceProject = true;
 				}
 			}
-			}
+			//}
 			if (notPreferenceProject == true || projectPreference > 6) {
 				numOfUnhappy++;
 			}
