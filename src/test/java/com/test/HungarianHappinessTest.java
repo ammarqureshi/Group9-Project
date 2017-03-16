@@ -139,9 +139,9 @@ public class HungarianHappinessTest {
 	}
 	
 	@Test
-	public void OneOwnProject() {
+	public void OneOwnProject1stPreference() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"5\n1 OP 2 3 4 5\n"
 		);
 		String results = "1 OP\n";
 		double[] exResults = new double[]{100, 0, 0};
@@ -151,13 +151,26 @@ public class HungarianHappinessTest {
 	@Test
 	public void TwoOwnProjects() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
-				+ "2 1 2 3 4 5\n"
+				"5\n1 OP 2 3 4 5\n"
+				+ "2 OP 2 3 4 5\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
 		);
 		String results = "1 OP\n 2 OP\n 3 4\n 4 5\n";
 		double[] exResults = new double[]{50, 50, 0};
+		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+	
+	@Test
+	public void ThreeOwnProjects() {
+		String groups = new String(
+				"5\n1 1 2 3 OP 5\n"
+				+ "2 1 2 3 4 OP\n"
+				+ "3 1 2 3 5 4\n"
+				+ "4 1 2 OP 4 5"
+		);
+		String results = "1 OP\n 2 OP\n 3 4\n 4 OP\n";
+		double[] exResults = new double[]{25, 75, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
 
