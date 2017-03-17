@@ -128,6 +128,8 @@ public class SimpleHungarianTest {
 						  "3 3\n";
 		assertEquals(expected, result);
 	}
+	
+
 
 	@Test
 	public void lastYearsPreferences() {

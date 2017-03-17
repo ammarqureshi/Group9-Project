@@ -1,0 +1,19 @@
+"Projects"
+NumberOfProjects
+{ProjectNumber (NumGroups if multigroup) (P for priority)}
+"OwnProjects"
+MaxNumberAllowedOwnProjects
+{GroupIds with vettedProjects}
+
+eg - 
+Projects // header for projects
+5        // NumberOfProjects
+1        // ProjectNumbers - n.b. not necessarily consecutive
+2
+4 P      // this is a priority project
+5 3      // this takes 3 groups
+6 2 P    // this takes 2 groups AND is a priority project
+OwnProjects // header for own projects section
+2           // maximum of 2 groups allowed own projects this year
+1           // group ids of groups allowed to do own project, 1 and 4
+4
