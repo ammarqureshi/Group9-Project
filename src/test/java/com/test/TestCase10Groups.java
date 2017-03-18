@@ -31,9 +31,16 @@ public class TestCase10Groups {
 				+ "25\n"
 				+ "11 23 7 6 2 10 9 30\n"
 				+ "17 18 18 45\n");
-		String expected = new String("1 5\n"
-				+ "2 5\n"
-				+ "3 2\n");
+		String expected = new String("1 1\n"
+				+ "2  \n"
+				+ "3 2\n"
+				+ "4 PP\n"
+				+ "5 4\n"
+				+ "6 10\n"
+				+ "7 5\n"
+				+ "8  \n"
+				+ "9 6\n"
+				+ "10  \n");
 		String result = Hungarian.getAssignments(groupPrefs, projDesc);
 		assertEquals(expected, result);
 	}
