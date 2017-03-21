@@ -102,11 +102,5 @@ public class MainProgram {
     	return getAssignments(preferences, projDescriptions);
     }
     
-    public static void main(String[] args) throws Exception
-    {
-    	//run with command line args with first and second file
-    	String result = assignFromFileInput(args[0], args[1]);
-    	System.out.println(result);
-	 }
 
 }
