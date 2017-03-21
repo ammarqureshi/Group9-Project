@@ -8,8 +8,7 @@ public class AllConstraintsTest {
 
 	@Test
 	public void vettingNecessary() {
-		
-		//this test will fail till Ezi's vetting code is ready
+
 		String projectInfo =
 				"Projects\n" +
 				"1\n" +
@@ -46,8 +45,6 @@ public class AllConstraintsTest {
 	
 	@Test
 	public void priorityNecessary() {
-		
-		//this test will fail till Thomas's vetting code is ready
 		String projectInfo =
 				"Projects\n" +
 				"1\n" +
