@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.security.AllPermission;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -20,7 +21,10 @@ public class MainProgram {
 		int[] result = hbm.execute();
 		
 		String resultString = createResultsString(result, pp, pd);
-		
+		/*
+		String happinessBeforePrioritizing = 
+				HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString));
+		*/
 		while(!findUnallocatedPriorityProjects(resultString, pd).isEmpty()) {
 
 			for(int i = 0; i < cos.length; i++) {
@@ -40,6 +44,11 @@ public class MainProgram {
 			hbm = new Hungarian(cos);
 			result = hbm.execute();
 			resultString = createResultsString(result, pp, pd);
+			/*
+			String happinessAfterPrioritizing = 
+					HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString));
+			System.out.println(happinessBeforePrioritizing + " " + happinessAfterPrioritizing);
+			*/
 		}
 		
 		// uncomment this to run happiness testing for all tests easily
@@ -47,10 +56,10 @@ public class MainProgram {
         return resultString;
     }
 
-    private static Set<Integer> findUnallocatedPriorityProjects(String resultString, ProjectData pd) {
+    private static LinkedList<Integer> findUnallocatedPriorityProjects(String resultString, ProjectData pd) {
     	
     	Scanner resultStringScanner = new Scanner(resultString);
-    	Set<Integer> assignedProjects = new HashSet<Integer>();
+    	LinkedList<Integer> assignedProjects = new LinkedList<Integer>();
     	
     	while(resultStringScanner.hasNextLine()) {
     		String token = resultStringScanner.nextLine().split(" ")[1];
@@ -60,9 +69,10 @@ public class MainProgram {
     	
     	resultStringScanner.close();
     	
-    	Set<Integer> unassignedPriorityProjects = (HashSet<Integer>) pd.getPriorityProjects().clone();
+    	LinkedList<Integer> unassignedPriorityProjects = (LinkedList<Integer>) pd.getPriorityProjects().clone();
 
-    	unassignedPriorityProjects.removeAll(assignedProjects);
+    	for(Integer assigned : assignedProjects)
+    		unassignedPriorityProjects.remove(assigned);
     	return unassignedPriorityProjects;
     }
     

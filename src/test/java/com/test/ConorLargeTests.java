@@ -35,8 +35,18 @@ public class ConorLargeTests {
 				"9 1 2 3 5\n" +
 				"10 4 5 6 1 OP 5 2\n";
 		String result = MainProgram.getAssignments(groupPrefs, projDesc);
-		System.out.println(result);
-		fail();
+		String expected = 
+				"1 2\n" +
+				"2 6\n" +
+				"3 5\n" +
+				"4 8\n" +
+				"5 OP\n" +
+				"6 8\n" + // given 8 to ensure priority group proj is filled
+				"7 3\n" +
+				"8 8\n" +
+				"9 1\n" +
+				"10 4\n";
+		assertEquals(expected, result);
 	}
 
 }
