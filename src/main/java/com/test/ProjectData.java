@@ -71,18 +71,11 @@ public class ProjectData {
 				for(int j = 1; j < tokens.length; j++) {
 					if(tokens[j].equals("P")) {
 						priorityProjects.add(projNum);
-						// if priority needs multiple copies in list of priority projects
-						// code duplicated so order of P and number of groups taken can be swapped
-						if(projectNumToColNums.get(projNum) != null)
-							if(projectNumToColNums.get(projNum).size() > 1)
-								for(int k = 1; k < projectNumToColNums.get(projNum).size(); k++)
-									priorityProjects.add(projNum);
 					}
 					else if (tokens[j].matches("\\d+")){
 						// is multigroup
 						numOfColsNeeded = Integer.parseInt(tokens[j]);
 						// if priority needs multiple copies in list of priority projects
-						// code duplicated so order of P and number of groups taken can be swapped
 						if(priorityProjects.contains(projNum)) {
 							for(int k = 1; k < numOfColsNeeded; k++)
 								priorityProjects.add(projNum);
