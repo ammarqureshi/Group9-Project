@@ -18,8 +18,8 @@ public class ProjectData {
 	private int nextFreeColNumber = 0;
 	private int maxOwnProjects = 0;
 
-	//keep list of priority projects
-	private HashSet<Integer> priorityProjects = new HashSet<Integer>();
+	//keep list of priority projects (contains multiple copies of multigroup priority projects)
+	private LinkedList<Integer> priorityProjects = new LinkedList<Integer>();
 	//keep list of allowed own projects
 	private HashSet<String> vettedOwnProjects = new HashSet<String>();
 	
@@ -27,7 +27,7 @@ public class ProjectData {
 		return nextFreeColNumber;
 	}
 	
-	public HashSet<Integer> getPriorityProjects() {
+	public LinkedList<Integer> getPriorityProjects() {
 		return priorityProjects;
 	}
 
@@ -69,11 +69,24 @@ public class ProjectData {
 				int numOfColsNeeded = 1;
 				
 				for(int j = 1; j < tokens.length; j++) {
-					if(tokens[j].equals("P"))
+					if(tokens[j].equals("P")) {
 						priorityProjects.add(projNum);
+						// if priority needs multiple copies in list of priority projects
+						// code duplicated so order of P and number of groups taken can be swapped
+						if(projectNumToColNums.get(projNum) != null)
+							if(projectNumToColNums.get(projNum).size() > 1)
+								for(int k = 1; k < projectNumToColNums.get(projNum).size(); k++)
+									priorityProjects.add(projNum);
+					}
 					else if (tokens[j].matches("\\d+")){
-						//is multigroup
+						// is multigroup
 						numOfColsNeeded = Integer.parseInt(tokens[j]);
+						// if priority needs multiple copies in list of priority projects
+						// code duplicated so order of P and number of groups taken can be swapped
+						if(priorityProjects.contains(projNum)) {
+							for(int k = 1; k < numOfColsNeeded; k++)
+								priorityProjects.add(projNum);
+						}
 					}
 					else
 						System.err.println("Token in project info for project " + projNum + " unrecognised : " + tokens[j]);
