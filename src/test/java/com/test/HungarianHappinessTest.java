@@ -124,7 +124,7 @@ public class HungarianHappinessTest {
 		double[] exResults = new double[]{75, 0, 25};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
-	
+
 	@Test
 	public void Happy25Middling50Unhappy25() {
 		String groups = new String(
@@ -136,6 +136,23 @@ public class HungarianHappinessTest {
 		String results = "1 1 2 6 3 4 4 5";
 		double[] exResults = new double[]{25, 50, 25};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+	
+	@Test
+	public void outStringTest() {
+		String groups = new String(
+				"5\n1 1 2 3 4 5\n"
+				+ "2 1 2 3 4 5\n"
+				+ "3 1 2 3 5 4\n"
+				+ "4 1 2 3 4 5"
+		);
+		String results = "1 1 2 6 3 4 4 5";
+		double[] exResults = new double[]{25, 50, 25};
+		String resultString = HungarianHappiness.resultToString(exResults);
+		String expected = "% in top 3 - 25.0\n" +
+				"% in next 3 - 50.0\n" +
+				"% other preference - 25.0\n";
+		Assert.assertEquals(expected, resultString);
 	}
 
 }
