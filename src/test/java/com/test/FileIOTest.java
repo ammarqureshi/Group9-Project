@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class FileIOTests {
+public class FileIOTest {
 
 	@Test
 	public void test() {
