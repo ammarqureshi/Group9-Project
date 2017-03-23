@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class PriorityProjectConstraintTests {
+public class PriorityProjectConstraintTest {
 
 	@Test
 	public void simple() {
