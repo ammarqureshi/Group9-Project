@@ -10,7 +10,9 @@ public class HungarianHappiness {
 	 * getting a project >6 preferences (unhappy)
 	 */
 	public static double[] happinessScore(String preferences, String results) {
-		String []groups = preferences.split("\n");
+		String preferencesFormatted = preferences.replace("OP", "0");
+		results = results.replace("OP", "0");
+		String []groups = preferencesFormatted.split("\n");
 		int numOfGroups = groups.length-1;
 		double numOfHappy = 0;		//these are the number of groups that fall within our 3 percentiles
 		double numOfMiddling = 0;
@@ -29,7 +31,7 @@ public class HungarianHappiness {
 			int projectPreference = 0;
 			boolean notPreferenceProject = false;	//if project a group receives is not in their preferences
 													//they are given the same score as they would receive if it was their last preference+1
-			int chosenProject = 0;
+			int chosenProject = 999;	//set to an int not used
 			
 			while (chosenProject != givenProject && notPreferenceProject != true) {
 				if (groupScanner.hasNextInt()) {
