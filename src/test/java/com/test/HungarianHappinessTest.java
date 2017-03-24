@@ -173,6 +173,7 @@ public class HungarianHappinessTest {
 		double[] exResults = new double[]{25, 75, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 
+	@Test
 	public void outStringTest() {
 		String groups = new String(
 				"5\n1 1 2 3 4 5\n"
