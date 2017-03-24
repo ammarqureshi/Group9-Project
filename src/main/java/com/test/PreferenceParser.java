@@ -73,16 +73,6 @@ public class PreferenceParser {
 		}
 	}
 	
-	public void prioritizeProject(int[][] costMatrix, int projNum) {
-		for(int i = 0; i < costMatrix.length; i++) {
-			if(pd.getColNumsForProjNum(projNum) != null ) {
-				for(int col : pd.getColNumsForProjNum(projNum)) {
-					costMatrix[i][col] = costMatrix[i][col]--;
-				}
-			}
-		}
-	}
-	
 
 	private void weightUnfilledPreferences(int[][] costMatrix, int[] highestWeightForRow){
 		for(int i = 0; i < costMatrix.length; i++)
