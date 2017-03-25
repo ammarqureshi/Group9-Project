@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class MainProgram {
+	
+	public final static String ARGS_ERR = "Error - args should be <preferencesFile><projectDescriptionsFile>";
     
     public static String getAssignments(String preferences, String projDescriptions) {
     	ProjectData pd = new ProjectData(projDescriptions);
@@ -155,9 +157,13 @@ public class MainProgram {
 
     
     public static void main(String[] args) {
-    	String preferences = getStringFromFile(args[0]);
-    	String projDescriptions = getStringFromFile(args[1]);
-    	getAssignmentsPrintHappiness(preferences, projDescriptions);
+    	if(args.length != 2)
+    		System.err.println(MainProgram.ARGS_ERR);
+    	else {
+    		String preferences = getStringFromFile(args[0]);
+        	String projDescriptions = getStringFromFile(args[1]);
+        	getAssignmentsPrintHappiness(preferences, projDescriptions);
+    	}
     }
     
 
