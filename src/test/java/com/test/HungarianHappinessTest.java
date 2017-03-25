@@ -6,6 +6,11 @@ import org.junit.Test;
 public class HungarianHappinessTest {
 
 	@Test
+	public void constructor() {
+		new HungarianHappiness();
+	}
+	
+	@Test
 	public void Onegroup() {
 		String groups = new String("12\n1 1 2 3 4 5 6 7 8 9 10 11 12");
 		String results = "1 1\n";
