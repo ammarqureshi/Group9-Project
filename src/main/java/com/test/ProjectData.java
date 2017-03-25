@@ -56,7 +56,8 @@ public class ProjectData {
 	public ProjectData(String projectInfo) {
 		String[] lines = projectInfo.split("\n");
 		if(!lines[0].equals("Projects")) {
-			System.err.println("Projects info file incorrectly formatted? Doesn't start with \"Projects\\n\"");
+			final String err = "Projects info file incorrectly formatted? Doesn't start with \"Projects\\n\"";
+		    throw new IllegalArgumentException(err);
 		}
 		
 		int i = 1;
@@ -81,8 +82,11 @@ public class ProjectData {
 								priorityProjects.add(projNum);
 						}
 					}
-					else
-						System.err.println("Token in project info for project " + projNum + " unrecognised : " + tokens[j]);
+					else{
+						
+						String err = "Token in project info for project " + projNum + " unrecognised : " + tokens[j];
+					    throw new IllegalArgumentException(err);
+					}
 				}
 				
 				HashSet<Integer> allColsForThisProj = new HashSet<Integer>();
