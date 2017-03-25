@@ -3,6 +3,7 @@ package com.test;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.junit.Test;
 public class MainProgramTest {
 
 	@Test
-	public void test() { 
+	public void test() throws FileNotFoundException { 
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    PrintStream ps = new PrintStream(baos);
 	    // IMPORTANT: Save the old System.out!
@@ -64,7 +65,7 @@ public class MainProgramTest {
 	}
 
 	@Test
-	public void testBadInput() { 
+	public void testBadInput() throws FileNotFoundException { 
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    PrintStream ps = new PrintStream(baos);
 	    // IMPORTANT: Save the old System.out!
@@ -81,5 +82,34 @@ public class MainProgramTest {
 	    assertEquals(expected, result);
 	    */
 	}
+	
+	
+	@Test
+	public void testFileNotFoundException(){
+		
+		String prfFile = "pref.txt";
+		String prjDscFile = "prjdsc.txt";
+
+		
+		 try
+		  {
+				MainProgram.main(new String[] {prfFile,prjDscFile});
+
+		    fail("Should have thrown FileNotFoundException but did not");
+		  }
+		  catch( FileNotFoundException e)
+		  {
+				String err = "File " + prfFile + " not found!";
+
+		    assertEquals(err, e.getMessage());
+		  }
+	}
+	
+	
+	
+	
+
+	
+	
 
 }

@@ -136,27 +136,30 @@ public class MainProgram {
         return resultString;
     }
     
-    public static String getStringFromFile(String filename) {
+    public static String getStringFromFile(String filename) throws FileNotFoundException {
     	String text = "";
 		try {
 			Scanner scanner = new Scanner( new File(filename) );
 	    	text = scanner.useDelimiter("\\A").next();
 	    	scanner.close();
 		} catch (FileNotFoundException e) {
-			System.err.println("File " + filename + " not found!");
-			e.printStackTrace();
+			String err = "File " + filename + " not found!";
+			System.err.println(err);
+		    throw new FileNotFoundException(err);
+
+
 		}
     	return text;
     }
    
-    public static String assignFromFileInput(String preferencesPath, String projectInfoPath) {
+    public static String assignFromFileInput(String preferencesPath, String projectInfoPath) throws FileNotFoundException {
     	String preferences = getStringFromFile(preferencesPath);
     	String projDescriptions = getStringFromFile(projectInfoPath);
     	return getAssignments(preferences, projDescriptions);
     }
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
     	if(args.length != 2)
     		System.err.println(MainProgram.ARGS_ERR);
     	else {

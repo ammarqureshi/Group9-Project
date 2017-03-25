@@ -2,12 +2,14 @@ package com.test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 
 public class FileIOTest {
 
 	@Test
-	public void test() {
+	public void test() throws FileNotFoundException {
 		// same input and output as ConorLargeTests first test
 		String pathToPrefs = "fileIOTestFilePrefs.txt";
 		String pathToProjects = "fileIOTestFileProjects.txt";
