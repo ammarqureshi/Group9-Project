@@ -11,10 +11,6 @@ public class PreferenceParser {
 	HashMap<Integer, String> rowToGroupName = new HashMap<Integer, String>();
 	int nextAvailableRow = 0;
 	
-	public HashMap<String, Integer> getGroupNameToRow() {
-		return groupNameToRow;
-	}
-
 	public HashMap<Integer, String> getRowToGroupName() {
 		return rowToGroupName;
 	}

@@ -61,9 +61,14 @@ public class HungarianHappiness {
 	}
 	
 	public static String resultToString(double[] results) {
-		String result = "% in top 3 - " + results[0] + "\n" +
-				 "% in next 3 - " + results[1] + "\n" +
-				 "% other preference - " + results[2] + "\n";
+		String[] twoDecimalPlaces = new String[3];
+		for(int i = 0; i < results.length; i++) {
+			twoDecimalPlaces[i] = String.format("%.2f", results[i]);
+		}
+		
+		String result = "Groups receiving top 3 preference - " + twoDecimalPlaces[0] + "%\n" +
+				 "Groups receiving preference 4-6 - " + twoDecimalPlaces[1] + "%\n" +
+				 "Groups receiving other preference - " + twoDecimalPlaces[2] + "%\n";
 		return result;
 	}
 

@@ -6,6 +6,11 @@ import org.junit.Test;
 public class HungarianHappinessTest {
 
 	@Test
+	public void constructor() {
+		new HungarianHappiness();
+	}
+	
+	@Test
 	public void Onegroup() {
 		String groups = new String("12\n1 1 2 3 4 5 6 7 8 9 10 11 12");
 		String results = "1 1\n";
@@ -185,9 +190,9 @@ public class HungarianHappinessTest {
 		String results = "1 1 2 6 3 4 4 5";
 		double[] exResults = new double[]{25, 50, 25};
 		String resultString = HungarianHappiness.resultToString(exResults);
-		String expected = "% in top 3 - 25.0\n" +
-				"% in next 3 - 50.0\n" +
-				"% other preference - 25.0\n";
+		String expected = "Groups receiving top 3 preference - 25.00%\n" +
+						  "Groups receiving preference 4-6 - 50.00%\n" +
+					      "Groups receiving other preference - 25.00%\n";
 		Assert.assertEquals(expected, resultString);
 	}
 

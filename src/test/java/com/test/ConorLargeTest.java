@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ConorLargeTests {
+public class ConorLargeTest {
 
 	@Test
 	public void test() {
