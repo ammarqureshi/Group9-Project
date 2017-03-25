@@ -52,7 +52,7 @@ public class MainProgram {
 		*/
 		
 		// uncomment this to run happiness testing for all tests easily
-		System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
+		// System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
         return resultString;
     }
 
