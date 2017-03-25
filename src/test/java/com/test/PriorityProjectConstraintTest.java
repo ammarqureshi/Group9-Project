@@ -49,11 +49,11 @@ public class PriorityProjectConstraintTest {
 				"2\n" +
 				"3 P 5\n";	// 3 must be assigned five times
 		String groupPreferences = 
-				"1 1 2 3\n"  + // preferences actually irrelevant they're all getting proj 3
-				"2 2 3 1 2\n"+
-				"3 2 3 1 2\n"+
-				"4 2 3 1 2\n"+
-				"5 2 3 1 2\n";
+				"1 1 2\n"  + // preferences actually irrelevant they're all getting proj 3
+				"2 2 1\n"+
+				"3 2 1\n"+
+				"4 2 1\n"+
+				"5 2 1\n";
 		String result = MainProgram.getAssignments(groupPreferences, projectInfo);
 		String expected = 
 				"1 3\n" +

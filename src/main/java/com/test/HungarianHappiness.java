@@ -21,11 +21,11 @@ public class HungarianHappiness {
 		for (int i=1; i<groups.length; i++) {	//start at 1 cause 0 will be num of projects
 			Scanner resultsScanner = new Scanner(results);
 			Scanner groupScanner = new Scanner(groups[i]);
-			int groupNum = groupScanner.nextInt();	//relies on fact that groups are listed sequentially
-			int resultsGroup = resultsScanner.nextInt();
-			while (groupNum != resultsGroup) {
+			String groupNum = groupScanner.next();	//relies on fact that groups are listed sequentially
+			String resultsGroup = resultsScanner.next();
+			while (!groupNum.equals(resultsGroup)) {
 				resultsScanner.nextInt();  //skips given project
-				resultsGroup = resultsScanner.nextInt();
+				resultsGroup = resultsScanner.next();
 			}
 			int givenProject = resultsScanner.nextInt();
 			int projectPreference = 0;

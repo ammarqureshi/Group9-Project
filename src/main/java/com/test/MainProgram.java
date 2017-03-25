@@ -10,7 +10,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class MainProgram {
-
     
     public static String getAssignments(String preferences, String projDescriptions) {
     	ProjectData pd = new ProjectData(projDescriptions);
@@ -23,10 +22,10 @@ public class MainProgram {
 		String resultString = createResultsString(result, pp, pd);
 		/*
 		String happinessBeforePrioritizing = 
+				"Happiness before prioritizing - " + 
 				HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString));
 		*/
 		while(!findUnallocatedPriorityProjects(resultString, pd).isEmpty()) {
-
 			for(int i = 0; i < cos.length; i++) {
 				for(int j = 0; j < cos.length; j++)
 					if(cos[i][j] != PreferenceParser.VALUE_UNWANTED_PROJ)
@@ -41,18 +40,19 @@ public class MainProgram {
 				}
 			}
 
+			resultString = createResultsString(result, pp, pd);
 			hbm = new Hungarian(cos);
 			result = hbm.execute();
-			resultString = createResultsString(result, pp, pd);
-			/*
-			String happinessAfterPrioritizing = 
-					HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString));
-			System.out.println(happinessBeforePrioritizing + " " + happinessAfterPrioritizing);
-			*/
 		}
+		/*
+		String happinessAfterPrioritizing = 
+				"Happiness after prioritizing - " + 
+				HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString));
+		System.out.println(happinessBeforePrioritizing + "\n" + happinessAfterPrioritizing);
+		*/
 		
 		// uncomment this to run happiness testing for all tests easily
-		// System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
+		System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
         return resultString;
     }
 
