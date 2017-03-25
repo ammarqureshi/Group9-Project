@@ -56,7 +56,7 @@ public class MainProgramTest {
 	    		"9 1\n" +
 	    		"10 4\n";
 	    String result = baos.toString();
-	    result = result.substring(0, result.length()-2); //prune end necessary
+	    //result = result.substring(0, result.length()-2); //prune end necessary
 	    assertEquals(expected, result);
 	}
 
