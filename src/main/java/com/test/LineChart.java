@@ -1,7 +1,6 @@
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 
-import java.awt.BasicStroke;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,8 +25,6 @@ public class LineChart extends ApplicationFrame {
 		ChartPanel chartPanel = new ChartPanel(lineChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 		setContentPane(chartPanel);
-		//CategoryPlot plot = (CategoryPlot) lineChart.getPlot();
-		//plot.getRenderer().setSeriesStroke(1, new BasicStroke(2.0f));
 	}
 
 	private DefaultCategoryDataset createDataset() {
