@@ -5,11 +5,13 @@ import java.io.FileNotFoundException;
 import java.security.AllPermission;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Set;
 
 public class MainProgram {
-
+	
+	public final static String ARGS_ERR = "Error - args should be <preferencesFile><projectDescriptionsFile>";
     
     public static String getAssignments(String preferences, String projDescriptions) {
     	ProjectData pd = new ProjectData(projDescriptions);
@@ -20,9 +22,7 @@ public class MainProgram {
 		int[] result = hbm.execute();
 		
 		String resultString = createResultsString(result, pp, pd);
-		
 		while(!findUnallocatedPriorityProjects(resultString, pd).isEmpty()) {
-
 			for(int i = 0; i < cos.length; i++) {
 				for(int j = 0; j < cos.length; j++)
 					if(cos[i][j] != PreferenceParser.VALUE_UNWANTED_PROJ)
@@ -37,20 +37,72 @@ public class MainProgram {
 				}
 			}
 
+			resultString = createResultsString(result, pp, pd);
 			hbm = new Hungarian(cos);
 			result = hbm.execute();
-			resultString = createResultsString(result, pp, pd);
 		}
 		
 		// uncomment this to run happiness testing for all tests easily
-		// System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
+		//System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)));
         return resultString;
     }
+    
 
-    private static Set<Integer> findUnallocatedPriorityProjects(String resultString, ProjectData pd) {
+    
+    public static void getAssignmentsPrintHappiness(String preferences, String projDescriptions) {
+    	ProjectData pd = new ProjectData(projDescriptions);
+    	PreferenceParser pp = new PreferenceParser(pd);
+        int[][] cos = pp.getCostMatrixForPreferences(preferences);
+        
+		Hungarian hbm = new Hungarian(cos);
+		int[] result = hbm.execute();
+		
+		String resultString = createResultsString(result, pp, pd);
+		String beforePrioritizing = 
+				"Happiness before prioritizing - \n" + 
+				HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)) + "\n" +
+				"Assignments\n" +
+				resultString;
+		
+		boolean prioritizedProjects = false;		
+		while(!findUnallocatedPriorityProjects(resultString, pd).isEmpty()) {
+			prioritizedProjects = true;
+			for(int i = 0; i < cos.length; i++) {
+				for(int j = 0; j < cos.length; j++)
+					if(cos[i][j] != PreferenceParser.VALUE_UNWANTED_PROJ)
+						cos[i][j]++;
+			}
+			
+			for(Integer unallocNum : findUnallocatedPriorityProjects(resultString, pd)){
+				for(Integer col : pd.getColNumsForProjNum(unallocNum)){
+					for(int i = 0; i < cos.length; i++) {
+						cos[i][col] = cos[i][col] - 1;
+					}
+				}
+			}
+
+			resultString = createResultsString(result, pp, pd);
+			hbm = new Hungarian(cos);
+			result = hbm.execute();
+		}
+		
+		String afterPrioritizing = 
+				"Happiness after prioritizing - \n" + 
+				HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString)) + "\n" +
+				"Assignments\n" +
+				resultString;
+		if(prioritizedProjects)
+			System.out.println(beforePrioritizing + "\n" + afterPrioritizing);
+		else
+			System.out.println(HungarianHappiness.resultToString(HungarianHappiness.happinessScore(preferences, resultString))  + "\n" +
+					"Assignments \n" +
+					resultString);
+    }
+
+    private static LinkedList<Integer> findUnallocatedPriorityProjects(String resultString, ProjectData pd) {
     	
     	Scanner resultStringScanner = new Scanner(resultString);
-    	Set<Integer> assignedProjects = new HashSet<Integer>();
+    	LinkedList<Integer> assignedProjects = new LinkedList<Integer>();
     	
     	while(resultStringScanner.hasNextLine()) {
     		String token = resultStringScanner.nextLine().split(" ")[1];
@@ -60,9 +112,10 @@ public class MainProgram {
     	
     	resultStringScanner.close();
     	
-    	Set<Integer> unassignedPriorityProjects = (HashSet<Integer>) pd.getPriorityProjects().clone();
+    	LinkedList<Integer> unassignedPriorityProjects = (LinkedList<Integer>) pd.getPriorityProjects().clone();
 
-    	unassignedPriorityProjects.removeAll(assignedProjects);
+    	for(Integer assigned : assignedProjects)
+    		unassignedPriorityProjects.remove(assigned);
     	return unassignedPriorityProjects;
     }
     
@@ -83,30 +136,38 @@ public class MainProgram {
         return resultString;
     }
     
-    public static String getStringFromFile(String filename) {
+    public static String getStringFromFile(String filename) throws FileNotFoundException {
     	String text = "";
 		try {
 			Scanner scanner = new Scanner( new File(filename) );
 	    	text = scanner.useDelimiter("\\A").next();
 	    	scanner.close();
 		} catch (FileNotFoundException e) {
-			System.err.println("File " + filename + " not found!");
-			e.printStackTrace();
+			String err = "File " + filename + " not found!";
+			System.err.println(err);
+		    throw new FileNotFoundException(err);
+
+
 		}
     	return text;
     }
    
-    public static String assignFromFileInput(String preferencesPath, String projectInfoPath) {
+    public static String assignFromFileInput(String preferencesPath, String projectInfoPath) throws FileNotFoundException {
     	String preferences = getStringFromFile(preferencesPath);
     	String projDescriptions = getStringFromFile(projectInfoPath);
     	return getAssignments(preferences, projDescriptions);
     }
+
     
-    public static void main(String[] args) throws Exception
-    {
-    	//run with command line args with first and second file
-    	String result = assignFromFileInput(args[0], args[1]);
-    	System.out.println(result);
-	 }
+    public static void main(String[] args) throws FileNotFoundException {
+    	if(args.length != 2)
+    		System.err.println(MainProgram.ARGS_ERR);
+    	else {
+    		String preferences = getStringFromFile(args[0]);
+        	String projDescriptions = getStringFromFile(args[1]);
+        	getAssignmentsPrintHappiness(preferences, projDescriptions);
+    	}
+    }
+    
 
 }

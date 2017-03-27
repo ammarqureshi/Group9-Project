@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ConorLargeTests {
+public class ConorLargeTest {
 
 	@Test
 	public void test10() {
@@ -35,8 +35,6 @@ public class ConorLargeTests {
 				"9 1 2 3 5\n" +
 				"10 4 5 6 1 OP 5 2\n";
 		String result = MainProgram.getAssignments(groupPrefs, projDesc);
-		System.out.println(result);
-		//fail();
 	}
 	
 	@Test 
@@ -88,7 +86,6 @@ public class ConorLargeTests {
 				"19 16 8 4 5\n" +
 				"20 15\n";
 		String result = MainProgram.getAssignments(groupPrefs, projDesc);
-		System.out.println(result);
 	}
 
 	@Test 
@@ -160,6 +157,5 @@ public class ConorLargeTests {
 				"29 16 8 4 5\n" +
 				"30 8 30 12 27 5\n";
 		String result = MainProgram.getAssignments(groupPrefs, projDesc);
-		System.out.println(result);
 	}
 }

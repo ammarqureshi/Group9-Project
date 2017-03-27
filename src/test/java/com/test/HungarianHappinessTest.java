@@ -6,9 +6,14 @@ import org.junit.Test;
 public class HungarianHappinessTest {
 
 	@Test
+	public void constructor() {
+		new HungarianHappiness();
+	}
+	
+	@Test
 	public void Onegroup() {
 		String groups = new String("12\n1 1 2 3 4 5 6 7 8 9 10 11 12");
-		String results = "1 1";
+		String results = "1 1\n";
 		double[] exResults = new double[]{100, 0, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -23,7 +28,7 @@ public class HungarianHappinessTest {
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
 				+ "5 5 2 3 4 1 6 7 8 9 10 11 12"
 		);
-		String results = "1 1 2 2 3 3 4 4 5 5";
+		String results = "1 1\n 2 2\n 3 3\n 4 4\n 5 5\n";
 		double[] exResults = new double[]{100, 0, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -38,7 +43,7 @@ public class HungarianHappinessTest {
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
 				+ "5 5 2 3 4 10 6 7 8 9 1 11 12"
 		);
-		String results = "1 5 2 6 3 4 4 1 5 10";
+		String results = "1 5\n 2 6\n 3 4\n 4 1\n 5 10\n";
 		double[] exResults = new double[]{0, 100, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -53,7 +58,7 @@ public class HungarianHappinessTest {
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
 				+ "5 9 2 3 4 1 6 7 8 5 10 11 12"
 		);
-		String results = "1 12 2 11 3 10 4 9 5 5";
+		String results = "1 12\n 2 11\n 3 10\n 4 9\n 5 5\n";
 		double[] exResults = new double[]{0, 0, 100};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -68,7 +73,7 @@ public class HungarianHappinessTest {
 				+ "4 5 2 3 1 4\n"
 				+ "5 4 2 3 1 5"
 		);
-		String results = "1 9 2 8 3 7 4 6 5 10";
+		String results = "1 9\n 2 8\n 3 7\n 4 6\n 5 10\n";
 		double[] exResults = new double[]{0, 0, 100};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -81,7 +86,7 @@ public class HungarianHappinessTest {
 				+ "3 5 2 1 4 3\n"
 				+ "4 5 2 3 1 4"
 		);
-		String results = "1 5 2 2 3 3 4 4";
+		String results = "1 5\n 2 2\n 3 3\n 4 4\n";
 		double[] exResults = new double[]{50, 50, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -94,7 +99,7 @@ public class HungarianHappinessTest {
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
 		);
-		String results = "1 1 2 2 3 5 4 7";
+		String results = "1 1\n 2 2\n 3 5\n 4 7\n";
 		double[] exResults = new double[]{50, 25, 25};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -107,7 +112,7 @@ public class HungarianHappinessTest {
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
 		);
-		String results = "1 1 2 2 3 3 4 5";
+		String results = "1 1\n 2 2\n 3 3\n 4 5\n";
 		double[] exResults = new double[]{75, 25, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
@@ -120,11 +125,11 @@ public class HungarianHappinessTest {
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
 		);
-		String results = "1 1 2 2 3 3 4 6";
+		String results = "1 1\n 2 2\n 3 3\n 4 6\n";
 		double[] exResults = new double[]{75, 0, 25};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
 	}
-	
+
 	@Test
 	public void Happy25Middling50Unhappy25() {
 		String groups = new String(
@@ -133,9 +138,62 @@ public class HungarianHappinessTest {
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
 		);
-		String results = "1 1 2 6 3 4 4 5";
+		String results = "1 1\n 2 6\n 3 4\n 4 5\n";
 		double[] exResults = new double[]{25, 50, 25};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+	
+	@Test
+	public void OneOwnProject1stPreference() {
+		String groups = new String(
+				"5\n1 OP 2 3 4 5\n"
+		);
+		String results = "1 OP\n";
+		double[] exResults = new double[]{100, 0, 0};
+		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+	
+	@Test
+	public void TwoOwnProjects() {
+		String groups = new String(
+				"5\n1 OP 2 3 4 5\n"
+				+ "2 OP 2 3 4 5\n"
+				+ "3 1 2 3 5 4\n"
+				+ "4 1 2 3 4 5"
+		);
+		String results = "1 OP\n 2 OP\n 3 4\n 4 5\n";
+		double[] exResults = new double[]{50, 50, 0};
+		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+	
+	@Test
+	public void ThreeOwnProjects() {
+		String groups = new String(
+				"5\n1 1 2 3 OP 5\n"
+				+ "2 1 2 3 4 OP\n"
+				+ "3 1 2 3 5 4\n"
+				+ "4 1 2 OP 4 5"
+		);
+		String results = "1 OP\n 2 OP\n 3 4\n 4 OP\n";
+		double[] exResults = new double[]{25, 75, 0};
+		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
+	}
+
+	@Test
+	public void outStringTest() {
+		String groups = new String(
+				"5\n1 1 2 3 4 5\n"
+				+ "2 1 2 3 4 5\n"
+				+ "3 1 2 3 5 4\n"
+				+ "4 1 2 3 4 5"
+		);
+		String results = "1 1 2 6 3 4 4 5";
+		double[] exResults = new double[]{25, 50, 25};
+		String resultString = HungarianHappiness.resultToString(exResults);
+		String expected = "Groups receiving top 3 preference - 25.00%\n" +
+						  "Groups receiving preference 4-6 - 50.00%\n" +
+					      "Groups receiving other preference - 25.00%\n";
+		Assert.assertEquals(expected, resultString);
 	}
 
 }

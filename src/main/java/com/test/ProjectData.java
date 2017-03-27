@@ -18,8 +18,8 @@ public class ProjectData {
 	private int nextFreeColNumber = 0;
 	private int maxOwnProjects = 0;
 
-	//keep list of priority projects
-	private HashSet<Integer> priorityProjects = new HashSet<Integer>();
+	//keep list of priority projects (contains multiple copies of multigroup priority projects)
+	private LinkedList<Integer> priorityProjects = new LinkedList<Integer>();
 	//keep list of allowed own projects
 	private HashSet<String> vettedOwnProjects = new HashSet<String>();
 	
@@ -27,7 +27,7 @@ public class ProjectData {
 		return nextFreeColNumber;
 	}
 	
-	public HashSet<Integer> getPriorityProjects() {
+	public LinkedList<Integer> getPriorityProjects() {
 		return priorityProjects;
 	}
 
@@ -56,7 +56,8 @@ public class ProjectData {
 	public ProjectData(String projectInfo) {
 		String[] lines = projectInfo.split("\n");
 		if(!lines[0].equals("Projects")) {
-			System.err.println("Projects info file incorrectly formatted? Doesn't start with \"Projects\\n\"");
+			final String err = "Projects info file incorrectly formatted? Doesn't start with \"Projects\\n\"";
+		    throw new IllegalArgumentException(err);
 		}
 		
 		int i = 1;
@@ -69,14 +70,23 @@ public class ProjectData {
 				int numOfColsNeeded = 1;
 				
 				for(int j = 1; j < tokens.length; j++) {
-					if(tokens[j].equals("P"))
+					if(tokens[j].equals("P")) {
 						priorityProjects.add(projNum);
-					else if (tokens[j].matches("\\d+")){
-						//is multigroup
-						numOfColsNeeded = Integer.parseInt(tokens[j]);
 					}
-					else
-						System.err.println("Token in project info for project " + projNum + " unrecognised : " + tokens[j]);
+					else if (tokens[j].matches("\\d+")){
+						// is multigroup
+						numOfColsNeeded = Integer.parseInt(tokens[j]);
+						// if priority needs multiple copies in list of priority projects
+						if(priorityProjects.contains(projNum)) {
+							for(int k = 1; k < numOfColsNeeded; k++)
+								priorityProjects.add(projNum);
+						}
+					}
+					else{
+						
+						String err = "Token in project info for project " + projNum + " unrecognised : " + tokens[j];
+					    throw new IllegalArgumentException(err);
+					}
 				}
 				
 				HashSet<Integer> allColsForThisProj = new HashSet<Integer>();

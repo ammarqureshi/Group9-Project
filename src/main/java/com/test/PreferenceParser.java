@@ -11,10 +11,6 @@ public class PreferenceParser {
 	HashMap<Integer, String> rowToGroupName = new HashMap<Integer, String>();
 	int nextAvailableRow = 0;
 	
-	public HashMap<String, Integer> getGroupNameToRow() {
-		return groupNameToRow;
-	}
-
 	public HashMap<Integer, String> getRowToGroupName() {
 		return rowToGroupName;
 	}
@@ -69,16 +65,6 @@ public class PreferenceParser {
 		if(pd.getColNumsForProjNum(projNum) != null ) {
 			for(int col : pd.getColNumsForProjNum(projNum)) {
 				costMatrix[row][col] = weight;
-			}
-		}
-	}
-	
-	public void prioritizeProject(int[][] costMatrix, int projNum) {
-		for(int i = 0; i < costMatrix.length; i++) {
-			if(pd.getColNumsForProjNum(projNum) != null ) {
-				for(int col : pd.getColNumsForProjNum(projNum)) {
-					costMatrix[i][col] = costMatrix[i][col]--;
-				}
 			}
 		}
 	}
