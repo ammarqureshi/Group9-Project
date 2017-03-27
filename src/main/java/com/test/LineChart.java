@@ -1,6 +1,7 @@
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 
+import java.awt.BasicStroke;
 import java.io.File;
 import java.io.IOException;
 
@@ -8,6 +9,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -24,6 +26,8 @@ public class LineChart extends ApplicationFrame {
 		ChartPanel chartPanel = new ChartPanel(lineChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 		setContentPane(chartPanel);
+		//CategoryPlot plot = (CategoryPlot) lineChart.getPlot();
+		//plot.getRenderer().setSeriesStroke(1, new BasicStroke(2.0f));
 	}
 
 	private DefaultCategoryDataset createDataset() {
@@ -60,7 +64,7 @@ public class LineChart extends ApplicationFrame {
 			try {
 				ChartUtilities.saveChartAsPNG(lineChartFile, lineChart, 640, 480);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.err.print("WHAT THE FUCK?!");
 				e.printStackTrace();
 			}
 	}
