@@ -43,6 +43,21 @@ public class ProjectDataTest {
 	    
 	}
 	
+	
+	@Test 
+	public void noOP(){
+		String test = "Projects\n" +
+				"1\n" +
+				"2 \n"+
+				"3 \n";
+		ProjectData pd = new ProjectData(test);
+		assertEquals("    1    2    3",
+				pd.colHeadersToString());
+	}
+	
+	
+	
+	
 	@Test
 	public void testNoProject()
 	{
@@ -67,6 +82,11 @@ public class ProjectDataTest {
 	    assertEquals(err, e.getMessage());
 	  }
 	}
+	
+	
+	
+	
+	
 	
 	@Test
 	public void testProjectDetailsUnrecognized(){
