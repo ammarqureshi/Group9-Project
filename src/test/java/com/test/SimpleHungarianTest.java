@@ -298,12 +298,17 @@ public class SimpleHungarianTest {
 //	}
 	
 	
+	@Test
+	public void testHung(){
+		int matrix [][] = {{1,2},{1,2}};
+		Hungarian hung = new Hungarian(matrix);
+	}
 	
 
 	@Test
 	public void testIrregularMatrixException(){
 		
-		int illgMatrix [][] = {{1,2,90},{3}}; 
+		int illgMatrix [][] = {{3},{1,2,90}}; 
 		try{
 		Hungarian hungarian = new Hungarian(illgMatrix);
 		fail("Should have thrown IlllegalArgument exception");

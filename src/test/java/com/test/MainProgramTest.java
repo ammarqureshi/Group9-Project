@@ -55,13 +55,10 @@ public class MainProgramTest {
 	    		"7 3\n" +
 	    		"8 8\n" +
 	    		"9 1\n" +
-	    		"10 4\n";
+	    		"10 4";
 	    String result = baos.toString();
-	    /*
-	    // weirdly this doesnt work on the maven build so I'm just commenting this out for the time being 
 	    result = result.substring(0, result.length()-2); //prune end necessary
 	    assertEquals(expected, result);
-	    */
 	}
 
 	@Test
