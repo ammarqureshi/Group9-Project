@@ -1,6 +1,6 @@
 package com.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -273,6 +273,45 @@ public class SimpleHungarianTest {
 				"squad 8\n" +
 				"group 7\n";
 		assertEquals(expected, result);
+	}
+	
+
+//	@Test
+//	public void testFileNotFoundException(){
+//		
+//		String prfFile = "pref.txt";
+//		String prjDscFile = "prjdsc.txt";
+//
+//		
+//		 try
+//		  {
+//				MainProgram.main(new String[] {prfFile,prjDscFile});
+//
+//		    fail("Should have thrown FileNotFoundException but did not");
+//		  }
+//		  catch( FileNotFoundException e)
+//		  {
+//				String err = "File " + prfFile + " not found!";
+//
+//		    assertEquals(err, e.getMessage());
+//		  }
+//	}
+	
+	
+	
+
+	@Test
+	public void testIrregularMatrixException(){
+		
+		int illgMatrix [][] = {{1,2,90},{3}}; 
+		try{
+		Hungarian hungarian = new Hungarian(illgMatrix);
+		fail("Should have thrown IlllegalArgument exception");
+		}
+		catch(IllegalArgumentException e){
+			String err = "Irregular cost matrix,need a square matrix";
+			assertEquals(err,e.getMessage());
+		}
 	}
 
 }
