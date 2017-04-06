@@ -24,9 +24,9 @@ public class MainProgramTest {
 	    System.setOut(old);
 	    String expected = 
 	    		"Happiness before prioritizing - \n" +
-	    		"Groups receiving top 3 preference - 55.56%\n" +
-	    		"Groups receiving preference 4-6 - 22.22%\n" +
-	    		"Groups receiving other preference - 22.22%\n" +
+	    		"Groups receiving top 3 preference - 60.00%\n" +
+	    		"Groups receiving preference 4-6 - 20.00%\n" +
+	    		"Groups receiving other preference - 20.00%\n" +
 	    		"\n" +
 	    		"Assignments\n" +
 	    		"1 2\n" +
@@ -41,9 +41,9 @@ public class MainProgramTest {
 	    		"10 4\n" +
 	    		"\n" +
 	    		"Happiness after prioritizing - \n" +
-	    		"Groups receiving top 3 preference - 55.56%\n" +
-	    		"Groups receiving preference 4-6 - 22.22%\n" +
-	    		"Groups receiving other preference - 22.22%\n" +
+	    		"Groups receiving top 3 preference - 60.00%\n" +
+	    		"Groups receiving preference 4-6 - 20.00%\n" +
+	    		"Groups receiving other preference - 20.00%\n" +
 	    		"\n" +
 	    		"Assignments\n" + 
 	    		"1 2\n" +
