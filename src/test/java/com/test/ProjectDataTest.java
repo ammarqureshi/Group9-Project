@@ -2,6 +2,9 @@ package com.test;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.Test;
 
 public class ProjectDataTest {
@@ -40,5 +43,77 @@ public class ProjectDataTest {
 	    
 	}
 	
+	
+	@Test 
+	public void noOP(){
+		String test = "Projects\n" +
+				"1\n" +
+				"2 \n"+
+				"3 \n";
+		ProjectData pd = new ProjectData(test);
+		assertEquals("    1    2    3",
+				pd.colHeadersToString());
+	}
+	
+	
+	
+	
+	@Test
+	public void testNoProject()
+	{
+		String groupInfo = 
+				"1\n" +
+				"2\n" +
+				"4 P\n" +
+				"5 3\n" +
+				"6 2 P\n" +
+				"OwnProjects\n" +
+				"2\n" +
+				"1\n" +
+				"4";
+	  try
+	  {
+	    new ProjectData(groupInfo);
+	    fail("Should have thrown some exception but did not!");
+	  }
+	  catch( final IllegalArgumentException e )
+	  {
+		final String err = "Projects info file incorrectly formatted? Doesn't start with \"Projects\\n\"";
+	    assertEquals(err, e.getMessage());
+	  }
+	}
+	
+	
+	
+	
+	
+	
+	@Test
+	public void testProjectDetailsUnrecognized(){
+		String groupInfo =
+				"Projects\n" +
+				"1\n" +
+				"2\n" +
+				"4 P\n" +
+				"5 3\n" +
+				"9 abc";
+			
+		
+		  try
+		  {
+		    new ProjectData(groupInfo);
+		    fail("Should have thrown some exception but did not!");
+		  }
+		  catch( final IllegalArgumentException e )
+		  {
+				String err = "Token in project info for project " + 9+  " unrecognised : abc" ;
+		    assertEquals(err, e.getMessage());
+		  }
+		
+		
+		
+	}
+	
+
 
 }

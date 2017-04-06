@@ -6,8 +6,13 @@ import org.junit.Test;
 public class HungarianHappinessTest {
 
 	@Test
+	public void constructor() {
+		new HungarianHappiness();
+	}
+	
+	@Test
 	public void Onegroup() {
-		String groups = new String("12\n1 1 2 3 4 5 6 7 8 9 10 11 12");
+		String groups = new String("1 1 2 3 4 5 6 7 8 9 10 11 12");
 		String results = "1 1\n";
 		double[] exResults = new double[]{100, 0, 0};
 		Assert.assertArrayEquals( exResults, HungarianHappiness.happinessScore(groups, results), 0);
@@ -17,7 +22,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allHappy() {
 		String groups = new String(
-				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n" 
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -32,7 +37,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allMiddling() {
 		String groups = new String(
-				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n"
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -47,7 +52,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void allUnhappy() {
 		String groups = new String(
-				"12\n1 1 2 3 4 5 6 7 8 9 10 11 12\n"
+				"1 1 2 3 4 5 6 7 8 9 10 11 12\n"
 				+ "2 2 1 3 4 5 6 7 8 9 10 11 12\n"
 				+ "3 3 2 1 4 5 6 7 8 9 10 11 12\n"
 				+ "4 4 2 3 1 5 6 7 8 9 10 11 12\n"
@@ -62,7 +67,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void notPreferenceProject() {
 		String groups = new String(
-				"5\n1 5 2 3 4 1\n"
+				"1 5 2 3 4 1\n"
 				+ "2 5 1 3 4 2\n"
 				+ "3 5 2 1 4 3\n"
 				+ "4 5 2 3 1 4\n"
@@ -76,7 +81,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy50Middling50() {
 		String groups = new String(
-				"5\n1 5 2 3 4 1\n"
+				"1 5 2 3 4 1\n"
 				+ "2 2 1 3 4 5\n"
 				+ "3 5 2 1 4 3\n"
 				+ "4 5 2 3 1 4"
@@ -89,7 +94,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy50Middling25Unhappy25() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -102,7 +107,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy75Middling25() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -115,7 +120,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy75Middling0Unhappy25() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 4 5\n"
 				+ "4 1 2 3 4 5"
@@ -128,7 +133,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void Happy25Middling50Unhappy25() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
@@ -141,7 +146,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void OneOwnProject1stPreference() {
 		String groups = new String(
-				"5\n1 OP 2 3 4 5\n"
+				"1 OP 2 3 4 5\n"
 		);
 		String results = "1 OP\n";
 		double[] exResults = new double[]{100, 0, 0};
@@ -151,7 +156,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void TwoOwnProjects() {
 		String groups = new String(
-				"5\n1 OP 2 3 4 5\n"
+				"1 OP 2 3 4 5\n"
 				+ "2 OP 2 3 4 5\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
@@ -164,7 +169,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void ThreeOwnProjects() {
 		String groups = new String(
-				"5\n1 1 2 3 OP 5\n"
+				"1 1 2 3 OP 5\n"
 				+ "2 1 2 3 4 OP\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 OP 4 5"
@@ -177,7 +182,7 @@ public class HungarianHappinessTest {
 	@Test
 	public void outStringTest() {
 		String groups = new String(
-				"5\n1 1 2 3 4 5\n"
+				"1 1 2 3 4 5\n"
 				+ "2 1 2 3 4 5\n"
 				+ "3 1 2 3 5 4\n"
 				+ "4 1 2 3 4 5"
@@ -185,9 +190,9 @@ public class HungarianHappinessTest {
 		String results = "1 1 2 6 3 4 4 5";
 		double[] exResults = new double[]{25, 50, 25};
 		String resultString = HungarianHappiness.resultToString(exResults);
-		String expected = "% in top 3 - 25.0\n" +
-				"% in next 3 - 50.0\n" +
-				"% other preference - 25.0\n";
+		String expected = "Groups receiving top 3 preference - 25.00%\n" +
+						  "Groups receiving preference 4-6 - 50.00%\n" +
+					      "Groups receiving other preference - 25.00%\n";
 		Assert.assertEquals(expected, resultString);
 	}
 
