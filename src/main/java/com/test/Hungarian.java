@@ -46,14 +46,17 @@ public class Hungarian
             {
                 if (cos[w].length != this.projects)
                 {
-                    throw new IllegalArgumentException("Irregular cost matrix");
+                	// our code always passes a square matrix
+                    throw new IllegalArgumentException("Irregular cost matrix,need a square matrix");
                 }
                 this.costMatrix[w] = Arrays.copyOf(cos[w], this.dim);
             }
+            /*
+            //similarly this code is unreachable
             else
             {
                 this.costMatrix[w] = new int[this.dim];
-            }
+            }*/ 
         }
         labelByGroup = new int[this.dim];
         labelByProject = new int[this.dim];
