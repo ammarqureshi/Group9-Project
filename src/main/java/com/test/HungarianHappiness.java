@@ -13,12 +13,12 @@ public class HungarianHappiness {
 		String preferencesFormatted = preferences.replace("OP", "0");
 		results = results.replace("OP", "0");
 		String []groups = preferencesFormatted.split("\n");
-		int numOfGroups = groups.length-1;
+		int numOfGroups = groups.length;
 		double numOfHappy = 0;		//these are the number of groups that fall within our 3 percentiles
 		double numOfMiddling = 0;
 		double numOfUnhappy = 0;
 		
-		for (int i=1; i<groups.length; i++) {	//start at 1 cause 0 will be num of projects
+		for (int i=0; i<groups.length; i++) {	
 			Scanner resultsScanner = new Scanner(results);
 			Scanner groupScanner = new Scanner(groups[i]);
 			String groupNum = groupScanner.next();	//relies on fact that groups are listed sequentially
